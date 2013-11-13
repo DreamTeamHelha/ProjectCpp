@@ -2,6 +2,7 @@
 #include "mathutils.h"
 #include <SFML/System/Time.hpp>
 #include <QMessageBox>
+#include <QCoreApplication>
 
 Scene::Scene() :
     m_graphicsScene(new QGraphicsScene),
@@ -110,10 +111,10 @@ Box *Scene::createBox32(const Vector& position, const Rotation& rotation)
     using mathutils::toRadians;
 
     // création de la partie visible
-    QPixmap *pixmap = new QPixmap("data/box32.png");
+    QPixmap *pixmap = new QPixmap(QCoreApplication::applicationDirPath() + "/data/box32.png");
     if (pixmap->isNull())
     {
-        QMessageBox::information(nullptr, "Errer", "L'image n'est pas trouvée!");
+        QMessageBox::information(nullptr, "Erreur", "L'image n'est pas trouvée!");
     }
     QGraphicsPixmapItem *graphics = new QGraphicsPixmapItem(*pixmap);
     graphics->setPos(position);
