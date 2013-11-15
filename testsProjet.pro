@@ -123,7 +123,8 @@ HEADERS += \
     SFML/System/Export.hpp \
     SFML/Config.hpp \
     object.h \
-    tilemap.h
+    tilemap.h \
+    objectfactory.h
 
 FORMS += \
     gamewindow.ui

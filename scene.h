@@ -6,7 +6,7 @@
 #include "car.h"
 #include "object.h"
 #include <Box2D/Box2D.h>
-#include <vector>
+#include <set>
 #include "vector.h"
 #include "rotation.h"
 
@@ -17,8 +17,16 @@ public:
     Scene();
     virtual ~Scene();
 
-    QGraphicsScene  *graphicsScene() const;
-    const b2World *physicsWorld() const;
+    ///
+    /// Getters
+    ///
+    QGraphicsScene *graphicsScene() const;
+    b2World        *physicsWorld () const;
+
+    ///
+    /// Ajoute un objet à la scène
+    ///
+    bool addObject(Object* object);
 
     ///
     /// Permet l'assignation et la récupération du playerInput utilisé pour commander le véhicule
@@ -41,8 +49,8 @@ public:
 private:
 
     QGraphicsScene      *m_graphicsScene;
-    b2World              m_physicsWorld;
+    b2World             *m_physicsWorld;
     const PlayerInput   *m_playerInput;
     Car                 *m_car;
-    std::vector<Object*> m_objects;
+    std::set<Object*>    m_objects;
 };

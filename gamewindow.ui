@@ -44,7 +44,7 @@
       <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
      <property name="renderHints">
-      <set>QPainter::TextAntialiasing</set>
+      <set>QPainter::Antialiasing|QPainter::TextAntialiasing</set>
      </property>
     </widget>
    </item>

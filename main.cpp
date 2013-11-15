@@ -1,6 +1,7 @@
 #include <QApplication>
 #include "gamewindow.h"
 #include "scene.h"
+#include "objectfactory.h"
 
 int main(int argc, char ** argv)
 {

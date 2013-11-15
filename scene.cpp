@@ -6,20 +6,30 @@
 
 Scene::Scene() :
     m_graphicsScene(new QGraphicsScene),
-    m_physicsWorld(Vector(0,0)),
+    m_physicsWorld(new b2World(Vector(0,0))),
     m_playerInput(NULL)
 {
     m_car = createCar( Vector(-100,-100));
-    m_objects.push_back( m_car );
-    m_objects.push_back( createBox(1000,10,0, Vector(0,300)) );
-    m_objects.push_back( createBox(1000,10,0, Vector(0,-300)) );
-    m_objects.push_back( createBox(10,600,0, Vector(500,0)) );
-    m_objects.push_back( createBox(10,600,0, Vector(-500,0)) );
-    m_objects.push_back( createBox(20,40,1, Vector(0,-150), Rotation::degrees(45) ) );
-    m_objects.push_back( createBox(10,10,1, Vector(0,-105)));
-    m_objects.push_back( createBox(10,50,0.5, Vector(10,-250), Rotation::degrees(-20)) );
-    m_objects.push_back( createBox(50,50,100, Vector(-10,-200)) );
-    m_objects.push_back( createBox32(Vector(0,100)));
+    m_objects.insert( m_car );
+    m_objects.insert( createBox(1000,10,0, Vector(0,300)) );
+    m_objects.insert( createBox(1000,10,0, Vector(0,-300)) );
+    m_objects.insert( createBox(10,600,0, Vector(500,0)) );
+    m_objects.insert( createBox(10,600,0, Vector(-500,0)) );
+    m_objects.insert( createBox(20,40,1, Vector(0,-150), Rotation::degrees(45) ) );
+    m_objects.insert( createBox(10,10,1, Vector(0,-105)));
+    m_objects.insert( createBox(10,50,0.5, Vector(10,-250), Rotation::degrees(-20)) );
+    m_objects.insert( createBox(50,50,100, Vector(-10,-200)) );
+    m_objects.insert( createBox32(Vector(0,100)));
+
+    BoxFactory boxFactory;
+    boxFactory.setScene(this);
+
+    boxFactory.setPosition(Vector(-20, -20));
+    boxFactory.setRotation(Rotation::degrees(45));
+    m_objects.insert( boxFactory.create() );
+    boxFactory.setPosition(Vector(20,-20));
+    boxFactory.setRotation(Rotation());
+    m_objects.insert( boxFactory.create() );
 }
 
 Scene::~Scene()
@@ -37,9 +47,26 @@ QGraphicsScene *Scene::graphicsScene() const
     return m_graphicsScene;
 }
 
-const b2World *Scene::physicsWorld() const
+b2World *Scene::physicsWorld() const
 {
-    return &m_physicsWorld;
+    return m_physicsWorld;
+}
+
+bool Scene::addObject(Object *object)
+{
+    if (!object)
+        return false;
+
+    /*
+    auto ret = m_objects.insert(object);
+    if (ret->second) // ajout au set réussi
+    {
+        // ajout du composant graphique
+        if (object->graphicsItem())
+            m_graphicsScene->addItem(object->graphicsItem());
+    }
+    //*/
+    return true;
 }
 
 const PlayerInput *Scene::playerInput() const
@@ -61,7 +88,7 @@ void Scene::update()
     }
 
     /// Mise à jour de la physique
-    m_physicsWorld.Step(sf::seconds(1.f/60.f).asSeconds(), 8, 3);
+    m_physicsWorld->Step(sf::seconds(1.f/60.f).asSeconds(), 8, 3);
 
     /// Mise à jour de tous les objets.
     for (Object *object : m_objects)
@@ -95,7 +122,7 @@ Box* Scene::createBox(qreal width, qreal height, qreal mass, const Vector &posit
     {
         bodyDef.type = b2_staticBody;
     }
-    b2Body *body = m_physicsWorld.CreateBody(&bodyDef);
+    b2Body *body = m_physicsWorld->CreateBody(&bodyDef);
     // - création de la forme
     b2PolygonShape shape;
     shape.SetAsBox(width/2, height/2);
@@ -130,7 +157,7 @@ Box *Scene::createBox32(const Vector& position, const Rotation& rotation)
     bodyDef.linearDamping = 0.8;
     bodyDef.angularDamping = 0.8;
     bodyDef.type = b2_dynamicBody;
-    b2Body *body = m_physicsWorld.CreateBody(&bodyDef);
+    b2Body *body = m_physicsWorld->CreateBody(&bodyDef);
     // - création de la forme
     b2PolygonShape shape;
     shape.SetAsBox(16, 16);
@@ -161,7 +188,7 @@ Car* Scene::createCar(const Vector &position, const Rotation &rotation)
     bodyDef.linearDamping = 0.5;
     bodyDef.angularDamping = 0.9;
 
-    b2Body *body = m_physicsWorld.CreateBody(&bodyDef);
+    b2Body *body = m_physicsWorld->CreateBody(&bodyDef);
     // - création de la forme
     b2PolygonShape shape;
     shape.SetAsBox(20, 10);
