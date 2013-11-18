@@ -62,7 +62,8 @@ SOURCES += \
     gamewindow.cpp \
     SFML/System/Time.cpp \
     object.cpp \
-    tilemap.cpp
+    tilemap.cpp \
+    tree.cpp
 
 HEADERS += \
     scene.h \
@@ -124,7 +125,8 @@ HEADERS += \
     SFML/Config.hpp \
     object.h \
     tilemap.h \
-    objectfactory.h
+    objectfactory.h \
+    tree.h
 
 FORMS += \
     gamewindow.ui

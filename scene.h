@@ -9,6 +9,7 @@
 #include <set>
 #include "vector.h"
 #include "rotation.h"
+#include "tree.h"
 
 class Scene
 {

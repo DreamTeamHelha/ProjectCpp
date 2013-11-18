@@ -30,6 +30,12 @@ Scene::Scene() :
     boxFactory.setPosition(Vector(20,-20));
     boxFactory.setRotation(Rotation());
     m_objects.insert( boxFactory.create() );
+
+    TreeFactory treeFactory;
+    treeFactory.setScene(this);
+
+    treeFactory.setPosition(Vector(-50,-50));
+    m_objects.insert(treeFactory.create());
 }
 
 Scene::~Scene()
