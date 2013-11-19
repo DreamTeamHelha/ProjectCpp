@@ -4,7 +4,7 @@ DEFINES += SFML_STATIC
 
 QMAKE_CXX += -std=gnu++11
 
-DESTDIR = $$PWD
+DESTDIR = $$PWD/bin
 
 SOURCES += \
     main.cpp \
