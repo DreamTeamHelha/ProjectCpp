@@ -20,6 +20,24 @@ public:
     {
     }
 
+    Vector(const QPointF& other) :
+        m_x(other.x()),
+        m_y(other.y())
+    {
+    }
+
+    Vector(const QVector2D& other) :
+        m_x(other.x()),
+        m_y(other.y())
+    {
+    }
+
+    Vector(const b2Vec2& other) :
+        m_x(other.x),
+        m_y(other.y)
+    {
+    }
+
     virtual ~Vector()
     {
     }
