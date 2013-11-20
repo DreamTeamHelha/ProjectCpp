@@ -2,6 +2,9 @@
 #include <QImage>
 #include <QCoreApplication>
 #include <QMessageBox>
+#include <QApplication>
+#include <iostream>
+#include <QColor>
 
 
 Tilemap* TilemapLoader::load(QString path)
@@ -15,18 +18,20 @@ Tilemap* TilemapLoader::load(QString path)
     }
 
     Tilemap *tilemap = new Tilemap();
-    tilemap->setWidth(image->width());
+
     tilemap->setHeight(image->height());
+    tilemap->setWidth(image->width());
     for(int widthCount = 0;widthCount<image->width();widthCount++)
     {
-        for(int heightCount = 0;heightCount < image->height(); heightCount++)
+        for(int heightCount = 0;heightCount<image->height(); heightCount++)
         {
             QRgb color = image->pixel(widthCount,heightCount);
             switch(color)
             {
-            case ASPHALT: tilemap->setTile(widthCount,heightCount,GroundType::Asphalt);
-                        break;
-            default :     tilemap->setTile(widthCount,heightCount,GroundType::Grass);
+            case ASPHALT: tilemap->setTile(heightCount,widthCount,GroundType::Asphalt);
+                          break;
+            default :     tilemap->setTile(heightCount,widthCount,GroundType::Grass);
+
             }
 
         }

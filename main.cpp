@@ -2,6 +2,7 @@
 #include "gamewindow.h"
 #include "scene.h"
 #include "objectfactories.h"
+#include <QCoreApplication>
 
 int main(int argc, char ** argv)
 {
