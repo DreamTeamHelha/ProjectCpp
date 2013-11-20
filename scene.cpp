@@ -3,19 +3,22 @@
 #include <SFML/System/Time.hpp>
 #include <QMessageBox>
 #include <QCoreApplication>
+#include <QGraphicsItem>
 
-Scene::Scene() :
+Scene::Scene(Tilemap *tilemap) :
     m_graphicsScene(new QGraphicsScene),
     m_physicsWorld(new b2World(Vector(0,0))),
     m_playerInput(nullptr),
-    m_tilemap(nullptr)
+    m_tilemap(tilemap)
 
 {
+    //Chargement de la map
+    loadMap();
     // création de la voiture
     CarFactory carFactory;
     carFactory.setScene(this);
 
-    carFactory.setPosition(Vector(-100, -100));
+    carFactory.setPosition(Vector(2000,2000));
     m_car = dynamic_cast<Car*>( carFactory.create() );
     m_objects.insert(m_car);
 
@@ -91,12 +94,6 @@ const Tilemap *Scene::tilemap() const
     return m_tilemap;
 }
 
-void Scene::setTilemap(Tilemap *tilemap)
-{
-    if(m_tilemap==nullptr)
-        m_tilemap = tilemap;
-}
-
 void Scene::update()
 {
     /// Commande le véhicule
@@ -117,5 +114,32 @@ void Scene::update()
 
 void Scene::loadMap()
 {
+    QPixmap *grassTile = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tiles/GrassTile.png");
+    if (grassTile->isNull())
+    {
+        QMessageBox::information(nullptr, "Erreur", "L'image n'est pas trouvée!");
+    }
+
+    QPixmap *roadTile = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tiles/RoadTile.png");
+    if (roadTile->isNull())
+    {
+        QMessageBox::information(nullptr, "Erreur", "L'image n'est pas trouvée!");
+    }
+
+    for(int x=0;x<m_tilemap->width();x++)
+    {
+        for(int y=0;y<m_tilemap->height();y++)
+        {
+            QGraphicsPixmapItem *item;
+            switch(m_tilemap->tile(y,x))
+            {
+            case GroundType::Asphalt :  item = new QGraphicsPixmapItem(*roadTile);
+                      break;
+            default : item = new QGraphicsPixmapItem(*grassTile);
+            }
+            item->setPos(x*32,y*32);
+            this->graphicsScene()->addItem(item);
+        }
+    }
 
 }

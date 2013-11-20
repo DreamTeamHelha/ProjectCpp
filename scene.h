@@ -16,7 +16,7 @@ class Scene
 {
 public:
 
-    Scene();
+    Scene(Tilemap*);
     virtual ~Scene();
 
     ///
@@ -42,10 +42,9 @@ public:
     void update();
 
     ///
-    ///Permet l'assignation et la récupération de la tilemap
+    ///Permet la récupération de la tilemap
     ///
     const Tilemap *tilemap() const;
-    void setTilemap(Tilemap *tilemap);
 
 private:
 
