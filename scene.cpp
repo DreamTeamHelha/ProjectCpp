@@ -112,9 +112,6 @@ void Scene::update()
     }
 }
 
-///
-/// Charge la map
-///
 void Scene::loadMap()
 {
     QPixmap *grassTile = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tiles/GrassTile.png");
@@ -145,4 +142,14 @@ void Scene::loadMap()
         }
     }
 
+}
+
+Vector Scene::calcViewPoint()
+{
+    Vector viewPoint;
+    if (m_car)
+    {
+        viewPoint = Vector(m_car->physicsBody()->GetPosition());
+    }
+    return viewPoint;
 }

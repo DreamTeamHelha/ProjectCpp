@@ -99,5 +99,6 @@ void GameWindow::timerEvent(QTimerEvent *)
     if (m_scene)
     {
         m_scene->update();
+        ui->graphicsView->centerOn(m_scene->calcViewPoint());
     }
 }

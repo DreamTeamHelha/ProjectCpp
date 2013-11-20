@@ -46,6 +46,11 @@ public:
     ///
     const Tilemap *tilemap() const;
 
+    ///
+    /// Calcule le point de vue de la caméra
+    ///
+    Vector calcViewPoint();
+
 private:
 
     QGraphicsScene      *m_graphicsScene;
