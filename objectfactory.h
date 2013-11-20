@@ -11,9 +11,12 @@ class Scene;
 ///
 class ObjectFactory
 {
-public:
+protected:
 
     ObjectFactory();
+
+public:
+
     virtual ~ObjectFactory() = default;
 
     ///
