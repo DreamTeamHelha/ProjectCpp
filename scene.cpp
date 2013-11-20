@@ -9,18 +9,15 @@ Scene::Scene() :
     m_physicsWorld(new b2World(Vector(0,0))),
     m_playerInput(NULL)
 {
-    m_car = createCar( Vector(-100,-100));
-    m_objects.insert( m_car );
-    m_objects.insert( createBox(1000,10,0, Vector(0,300)) );
-    m_objects.insert( createBox(1000,10,0, Vector(0,-300)) );
-    m_objects.insert( createBox(10,600,0, Vector(500,0)) );
-    m_objects.insert( createBox(10,600,0, Vector(-500,0)) );
-    m_objects.insert( createBox(20,40,1, Vector(0,-150), Rotation::degrees(45) ) );
-    m_objects.insert( createBox(10,10,1, Vector(0,-105)));
-    m_objects.insert( createBox(10,50,0.5, Vector(10,-250), Rotation::degrees(-20)) );
-    m_objects.insert( createBox(50,50,100, Vector(-10,-200)) );
-    m_objects.insert( createBox32(Vector(0,100)));
+    // création de la voiture
+    CarFactory carFactory;
+    carFactory.setScene(this);
 
+    carFactory.setPosition(Vector(-100, -100));
+    m_car = dynamic_cast<Car*>( carFactory.create() );
+    m_objects.insert(m_car);
+
+    // création de deux boites
     BoxFactory boxFactory;
     boxFactory.setScene(this);
 
@@ -31,6 +28,7 @@ Scene::Scene() :
     boxFactory.setRotation(Rotation());
     m_objects.insert( boxFactory.create() );
 
+    // création d'un arbre
     TreeFactory treeFactory;
     treeFactory.setScene(this);
 
@@ -101,106 +99,4 @@ void Scene::update()
     {
         object->update();
     }
-}
-
-Box* Scene::createBox(qreal width, qreal height, qreal mass, const Vector &position, const Rotation &rotation)
-{
-    using mathutils::toRadians;
-
-    // création de la partie visible
-    QGraphicsRectItem *graphicsRect = new QGraphicsRectItem(-width/2, -height/2, width, height);
-    graphicsRect->setPos(position);
-    graphicsRect->setRotation(rotation.degrees());
-    m_graphicsScene->addItem(graphicsRect);
-
-    // création de la partie physique
-    // - création du body
-    b2BodyDef bodyDef;
-    bodyDef.position.Set(position.x(), position.y());
-    bodyDef.angle = rotation.radians();
-    bodyDef.linearDamping = 0.8;
-    bodyDef.angularDamping = 0.8;
-    if (mass > 0)
-    {
-        bodyDef.type = b2_dynamicBody;
-    }
-    else
-    {
-        bodyDef.type = b2_staticBody;
-    }
-    b2Body *body = m_physicsWorld->CreateBody(&bodyDef);
-    // - création de la forme
-    b2PolygonShape shape;
-    shape.SetAsBox(width/2, height/2);
-    body->CreateFixture(&shape, 1);
-
-    // création de la box et la retourne
-    Box *box = new Box(graphicsRect, body);
-    return box;
-}
-
-Box *Scene::createBox32(const Vector& position, const Rotation& rotation)
-{
-    using mathutils::toRadians;
-
-    // création de la partie visible
-    QPixmap *pixmap = new QPixmap(QCoreApplication::applicationDirPath() + "/data/box32.png");
-    if (pixmap->isNull())
-    {
-        QMessageBox::information(nullptr, "Erreur", "L'image n'est pas trouvée!");
-    }
-    QGraphicsPixmapItem *graphics = new QGraphicsPixmapItem(*pixmap);
-    graphics->setPos(position);
-    graphics->setRotation(rotation.degrees());
-    m_graphicsScene->addItem(graphics);
-    graphics->setOffset(-16,-16);
-
-    // création de la partie physique
-    // - création du body
-    b2BodyDef bodyDef;
-    bodyDef.position.Set(position.x(), position.y());
-    bodyDef.angle = rotation.radians();
-    bodyDef.linearDamping = 0.8;
-    bodyDef.angularDamping = 0.8;
-    bodyDef.type = b2_dynamicBody;
-    b2Body *body = m_physicsWorld->CreateBody(&bodyDef);
-    // - création de la forme
-    b2PolygonShape shape;
-    shape.SetAsBox(16, 16);
-    body->CreateFixture(&shape, 1);
-
-    // création de la box et la retourne
-    Box *box = new Box(graphics, body);
-    return box;
-}
-
-
-Car* Scene::createCar(const Vector &position, const Rotation &rotation)
-{
-    using mathutils::toRadians;
-
-    // création de la partie visible
-    QGraphicsRectItem *graphicsRect = new QGraphicsRectItem(-20, -10, 40, 20);
-    graphicsRect->setPos(position);
-    graphicsRect->setRotation(rotation.degrees());
-    m_graphicsScene->addItem(graphicsRect);
-
-    // création de la partie physique
-    // - création du body
-    b2BodyDef bodyDef;
-    bodyDef.position.Set(position.x(), position.y());
-    bodyDef.angle = rotation.radians();
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.linearDamping = 0.5;
-    bodyDef.angularDamping = 0.9;
-
-    b2Body *body = m_physicsWorld->CreateBody(&bodyDef);
-    // - création de la forme
-    b2PolygonShape shape;
-    shape.SetAsBox(20, 10);
-    body->CreateFixture(&shape, 1);
-
-    // création de la box et la retourne
-    Car *car = new Car(graphicsRect, body);
-    return car;
 }

@@ -33,19 +33,12 @@ public:
     /// Permet l'assignation et la récupération du playerInput utilisé pour commander le véhicule
     ///
     const PlayerInput *playerInput() const;
-    void setPlayerInput(const PlayerInput *playerInput);
+    void  setPlayerInput(const PlayerInput *playerInput);
 
     ///
     /// Met à jour la logique de jeu
     ///
     void update();
-
-    ///
-    /// Méthodes provisoires (tests)
-    ///
-    Box *createBox(qreal width, qreal height, qreal mass, const Vector& position=Vector(), const Rotation& rotation=Rotation());
-    Car *createCar(const Vector& position=Vector(), const Rotation& rotation=Rotation());
-    Box *createBox32(const Vector& position, const Rotation& rotation = Rotation());
 
 private:
 
