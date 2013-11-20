@@ -1,4 +1,4 @@
-#include "scene.h"
+ #include "scene.h"
 #include "mathutils.h"
 #include <SFML/System/Time.hpp>
 #include <QMessageBox>
@@ -112,6 +112,9 @@ void Scene::update()
     }
 }
 
+///
+/// Charge la map
+///
 void Scene::loadMap()
 {
     QPixmap *grassTile = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tiles/GrassTile.png");
