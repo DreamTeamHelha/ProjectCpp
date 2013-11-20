@@ -10,6 +10,7 @@
 #include "vector.h"
 #include "rotation.h"
 #include "tree.h"
+#include "tilemap.h"
 
 class Scene
 {
@@ -40,6 +41,17 @@ public:
     ///
     void update();
 
+    ///
+    ///Permet l'assignation et la récupération de la tilemap
+    ///
+    const Tilemap *tilemap() const;
+    void setTilemap(const Tilemap *tilemap);
+
+    ///
+    /// Permet de charger la map
+    ///
+    void loadMap();
+
 private:
 
     QGraphicsScene      *m_graphicsScene;
@@ -47,4 +59,11 @@ private:
     const PlayerInput   *m_playerInput;
     Car                 *m_car;
     std::set<Object*>    m_objects;
+    Tilemap             *m_tilemap;
+
+    ///
+    /// Permet de charger la map
+    ///
+    void loadMap();
+
 };

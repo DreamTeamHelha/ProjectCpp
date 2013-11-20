@@ -7,7 +7,9 @@
 Scene::Scene() :
     m_graphicsScene(new QGraphicsScene),
     m_physicsWorld(new b2World(Vector(0,0))),
-    m_playerInput(NULL)
+    m_playerInput(nullptr),
+    m_tilemap(nullptr)
+
 {
     // création de la voiture
     CarFactory carFactory;
@@ -44,6 +46,7 @@ Scene::~Scene()
     }
     m_objects.clear();
     delete m_graphicsScene;
+    delete m_tilemap;
 }
 
 QGraphicsScene *Scene::graphicsScene() const
@@ -83,6 +86,17 @@ void Scene::setPlayerInput(const PlayerInput *playerInput)
     m_playerInput = playerInput;
 }
 
+const Tilemap *Scene::tilemap() const
+{
+    return m_tilemap;
+}
+
+void Scene::setTilemap(const Tilemap *tilemap)
+{
+    if(m_tilemap==nullptr)
+        m_tilemap = tilemap;
+}
+
 void Scene::update()
 {
     /// Commande le véhicule
@@ -99,4 +113,9 @@ void Scene::update()
     {
         object->update();
     }
+}
+
+void Scene::loadMap()
+{
+
 }
