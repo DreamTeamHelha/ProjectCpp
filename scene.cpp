@@ -22,7 +22,7 @@ Scene::Scene(Tilemap *tilemap) :
     m_car = dynamic_cast<Car*>( carFactory.create() );
     m_objects.insert(m_car);
 
-    // création de deux boites
+  /*  // création de deux boites
     BoxFactory boxFactory;
     boxFactory.setScene(this);
 
@@ -38,7 +38,7 @@ Scene::Scene(Tilemap *tilemap) :
     treeFactory.setScene(this);
 
     treeFactory.setPosition(Vector(-50,-50));
-    m_objects.insert(treeFactory.create());
+    m_objects.insert(treeFactory.create());*/
 }
 
 Scene::~Scene()
