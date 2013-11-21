@@ -6,6 +6,7 @@
 #include <QGraphicsItem>
 #include "objectfactories.h"
 #include "tilemaploader.h"
+#include "vector.h"
 
 Scene::Scene() :
     m_graphicsScene(new QGraphicsScene),
@@ -151,6 +152,29 @@ bool Scene::loadMap()
             this->graphicsScene()->addItem(item);
         }
     }
+    Vector v1;
+    Vector v2(m_tilemap->width()*32,0.f);
+    Vector v3(0.f,m_tilemap->height()*32);
+    Vector v4(m_tilemap->width()*32,m_tilemap->height()*32);
+
+
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_staticBody;
+    b2Body *body = physicsWorld()->CreateBody(&bodyDef);
+    b2EdgeShape lineUp;
+    lineUp.Set(v1,v2);
+    body->CreateFixture(&lineUp,1);
+    b2EdgeShape lineLeft;
+    lineLeft.Set(v1,v3);
+    body->CreateFixture(&lineLeft,1);
+    b2EdgeShape lineRight;
+    lineRight.Set(v2,v4);
+    body->CreateFixture(&lineRight,1);
+    b2EdgeShape lineBottom;
+    lineBottom.Set(v3,v4);
+    body->CreateFixture(&lineBottom,1);
+
+
     return true;
 
 }
