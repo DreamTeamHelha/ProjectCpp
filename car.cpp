@@ -19,6 +19,11 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
 {
     if (physicsBody())
     {
+        // direction
+        if (steering != 0)
+            physicsBody()->ApplyTorque(steering*900000);
+
+        // accélération
         float accel = 0;
 
         if (throttle > 0)
@@ -31,8 +36,15 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
 
         physicsBody()->ApplyForceToCenter(vAccel);
 
-        if (steering != 0)
-            physicsBody()->ApplyTorque(steering*900000);
+        // adhérence
+        //*
+        Vector velocity = physicsBody()->GetLinearVelocity();
+        Vector normal = physicsBody()->GetWorldVector(Vector(0,1));
+        float lateralFriction = b2Dot(normal, velocity);
+        normal *= lateralFriction;
+
+        Vector impulse = -normal * physicsBody()->GetMass();
+        physicsBody()->ApplyLinearImpulse( impulse, physicsBody()->GetWorldCenter() );
     }
 }
 
