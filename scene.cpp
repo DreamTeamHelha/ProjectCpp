@@ -76,7 +76,7 @@ bool Scene::load(const QString &levelName)
     }
 
     //Ajout du listener de contact
-    m_physicsWorld->SetContactListener(new CheckpointListener);
+    m_physicsWorld->SetContactListener(new CheckpointListener(this));
 
     m_loaded=true;
     return true;
