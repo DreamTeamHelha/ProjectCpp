@@ -21,7 +21,10 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
     {
         // direction
         if (steering != 0)
-            physicsBody()->ApplyTorque(steering*900000);
+        {
+            steering *= 150000 * Vector(physicsBody()->GetLinearVelocity()).length();
+            physicsBody()->ApplyTorque(steering);
+        }
 
         // accélération
         float accel = 0;
@@ -75,7 +78,7 @@ Object *CarFactory::create() const
     bodyDef.angle = rotation().radians();
     bodyDef.type = b2_dynamicBody;
     bodyDef.linearDamping = 0.5;
-    bodyDef.angularDamping = 0.9;
+    bodyDef.angularDamping = 7;
 
     b2Body *body = scene()->physicsWorld()->CreateBody(&bodyDef);
     // - création de la forme
