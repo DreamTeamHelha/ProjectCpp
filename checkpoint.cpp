@@ -39,7 +39,11 @@ Object* CheckpointFactory::create() const
     // - création de la forme
     b2CircleShape shape;
     shape.m_radius = 80;
-    body->CreateFixture(&shape, 1);
+    b2Fixture *fixture = body->CreateFixture(&shape, 1);
+    fixture->SetSensor(true);
+    fixture->SetFilterData(new b2Filter("Checkpoint"));
+
+
 
     // création du checkpoint et le retourne
     Checkpoint *checkpoint = new Checkpoint(graphics, body);

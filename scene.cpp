@@ -6,6 +6,7 @@
 #include "objectfactories.h"
 #include "tilemaploader.h"
 #include "vector.h"
+#include "checkpointlistener.h"
 
 Scene::Scene() :
     m_graphicsScene(new QGraphicsScene),
@@ -65,7 +66,17 @@ bool Scene::load(const QString &levelName)
         {
             return false;
         }
+        ObjectFactory *checkpointfactory;
+        checkpointfactory = ObjectFactories::getFactory("Checkpoint");
+        checkpointfactory->setScene(this);
+        checkpointfactory->setPosition(Vector(1800,1800));
+        checkpointfactory->setRotation(Rotation(0));
+        addObject(checkpointfactory->create());
+
     }
+
+    //Ajout du listener de contact
+    m_physicsWorld->SetContactListener(new CheckpointListener);
 
     m_loaded=true;
     return true;
