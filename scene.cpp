@@ -66,7 +66,7 @@ bool Scene::load(const QString &levelName)
 
         factory->setPosition(Vector(2000,2000));
         m_car = dynamic_cast<Car*>( factory->create() );
-        m_objects.insert(m_car);
+        addObject(m_car);
     }
 
     m_loaded=true;
@@ -78,15 +78,7 @@ bool Scene::addObject(Object *object)
     if (!object)
         return false;
 
-    /*
-    auto ret = m_objects.insert(object);
-    if (ret->second) // ajout au set réussi
-    {
-        // ajout du composant graphique
-        if (object->graphicsItem())
-            m_graphicsScene->addItem(object->graphicsItem());
-    }
-    //*/
+    m_objects.insert(object);
     return true;
 }
 
