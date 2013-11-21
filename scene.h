@@ -26,6 +26,11 @@ public:
     b2World        *physicsWorld () const;
 
     ///
+    /// Charge la scène
+    ///
+    bool load();
+
+    ///
     /// Ajoute un objet à la scène
     ///
     bool addObject(Object* object);

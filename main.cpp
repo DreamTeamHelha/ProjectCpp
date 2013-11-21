@@ -18,6 +18,9 @@ int main(int argc, char ** argv)
     // initialisation des factories
     ObjectFactories::initialize();
 
+    // chargement de la map
+    scene.load();
+
     // exécution du programme
     gameWindow.show();
     int returnCode = app.exec();

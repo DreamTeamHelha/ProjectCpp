@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QCoreApplication>
 #include <QGraphicsItem>
+#include "objectfactories.h"
 
 Scene::Scene(Tilemap *tilemap) :
     m_graphicsScene(new QGraphicsScene),
@@ -12,33 +13,6 @@ Scene::Scene(Tilemap *tilemap) :
     m_tilemap(tilemap)
 
 {
-    //Chargement de la map
-    loadMap();
-    // création de la voiture
-    CarFactory carFactory;
-    carFactory.setScene(this);
-
-    carFactory.setPosition(Vector(2000,2000));
-    m_car = dynamic_cast<Car*>( carFactory.create() );
-    m_objects.insert(m_car);
-
-  /*  // création de deux boites
-    BoxFactory boxFactory;
-    boxFactory.setScene(this);
-
-    boxFactory.setPosition(Vector(-20, -20));
-    boxFactory.setRotation(Rotation::degrees(45));
-    m_objects.insert( boxFactory.create() );
-    boxFactory.setPosition(Vector(20,-20));
-    boxFactory.setRotation(Rotation());
-    m_objects.insert( boxFactory.create() );
-
-    // création d'un arbre
-    TreeFactory treeFactory;
-    treeFactory.setScene(this);
-
-    treeFactory.setPosition(Vector(-50,-50));
-    m_objects.insert(treeFactory.create());*/
 }
 
 Scene::~Scene()
@@ -60,6 +34,48 @@ QGraphicsScene *Scene::graphicsScene() const
 b2World *Scene::physicsWorld() const
 {
     return m_physicsWorld;
+}
+
+bool Scene::load()
+{
+    //Chargement de la map
+    loadMap();
+
+    // récupération des factories
+    ObjectFactory *factory = ObjectFactories::getFactory("Car");
+    if (!factory)
+    {
+        return false;
+    }
+    else
+    {
+        factory->setScene(this);
+
+        factory->setPosition(Vector(2000,2000));
+        m_car = dynamic_cast<Car*>( factory->create() );
+        m_objects.insert(m_car);
+    }
+
+    /*
+    // création de deux boites
+    BoxFactory boxFactory;
+    boxFactory.setScene(this);
+
+    boxFactory.setPosition(Vector(-20, -20));
+    boxFactory.setRotation(Rotation::degrees(45));
+    m_objects.insert( boxFactory.create() );
+    boxFactory.setPosition(Vector(20,-20));
+    boxFactory.setRotation(Rotation());
+    m_objects.insert( boxFactory.create() );
+
+    // création d'un arbre
+    TreeFactory treeFactory;
+    treeFactory.setScene(this);
+
+    treeFactory.setPosition(Vector(-50,-50));
+    m_objects.insert(treeFactory.create());
+    //*/
+    return true;
 }
 
 bool Scene::addObject(Object *object)

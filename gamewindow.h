@@ -44,4 +44,3 @@ private:
     PlayerInput     m_playerInput;
     Ui::GameWindow  *ui;
 };
-
