@@ -66,7 +66,8 @@ SOURCES += \
     tree.cpp \
     tilemaploader.cpp \
     objectfactories.cpp \
-    checkpoint.cpp
+    checkpoint.cpp \
+    checkpointlistener.cpp
 
 HEADERS += \
     scene.h \
@@ -132,7 +133,8 @@ HEADERS += \
     tree.h \
     tilemaploader.h \
     objectfactories.h \
-    checkpoint.h
+    checkpoint.h \
+    checkpointlistener.h
 
 FORMS += \
     gamewindow.ui
