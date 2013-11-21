@@ -41,7 +41,6 @@ Object* CheckpointFactory::create() const
     shape.m_radius = 80;
     b2Fixture *fixture = body->CreateFixture(&shape, 1);
     fixture->SetSensor(true);
-    fixture->SetFilterData(new b2Filter("Checkpoint"));
 
 
 
