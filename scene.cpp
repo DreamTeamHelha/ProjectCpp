@@ -1,7 +1,6 @@
- #include "scene.h"
+#include "scene.h"
 #include "mathutils.h"
 #include <SFML/System/Time.hpp>
-#include <QMessageBox>
 #include <QCoreApplication>
 #include <QGraphicsItem>
 #include "objectfactories.h"
@@ -13,8 +12,8 @@ Scene::Scene() :
     m_physicsWorld(new b2World(Vector(0,0))),
     m_playerInput(nullptr),
     m_tilemap(nullptr),
-    m_loaded(false)
-
+    m_loaded(false),
+    m_car(nullptr)
 {
 }
 
@@ -62,11 +61,10 @@ bool Scene::load(const QString &levelName)
     }
     else
     {
-        factory->setScene(this);
-
-        factory->setPosition(Vector(2000,2000));
-        m_car = dynamic_cast<Car*>( factory->create() );
-        addObject(m_car);
+        if (!createPlayerCar(Vector(2000,2000), Rotation(0), factory))
+        {
+            return false;
+        }
     }
 
     m_loaded=true;
@@ -80,6 +78,36 @@ bool Scene::addObject(Object *object)
 
     m_objects.insert(object);
     return true;
+}
+
+Car *Scene::createPlayerCar(const Vector &position, const Rotation &rotation, ObjectFactory *carFactory)
+{
+    // retourne la voiture actuelle si elle est déjà créée,
+    // ou bien si aucune factory n'est passée en paramètre
+    if (m_car || !carFactory)
+    {
+        return m_car;
+    }
+
+    // réglages pré-création
+    carFactory->setScene(this);
+    carFactory->setPosition(position);
+    carFactory->setRotation(rotation);
+
+    // création, et vérification du type (l'objet créé doit être de la classe Car)
+    Object *object = carFactory->create();
+    m_car = dynamic_cast<Car*>( object );
+
+    if (m_car)
+    {
+        addObject(m_car);
+    }
+    else
+    {
+        delete object;
+        object = nullptr;
+    }
+    return m_car;
 }
 
 const PlayerInput *Scene::playerInput() const

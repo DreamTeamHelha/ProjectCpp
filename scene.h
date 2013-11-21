@@ -11,6 +11,7 @@
 #include "rotation.h"
 #include "tree.h"
 #include "tilemap.h"
+#include "objectfactory.h"
 
 class Scene
 {
@@ -34,6 +35,14 @@ public:
     /// Ajoute un objet à la scène
     ///
     bool addObject(Object* object);
+
+    ///
+    /// Crée la voiture du joueur, et la retourne.
+    /// Si la voiture du joueur à déjà été créée, elle est simplement retournée.
+    /// Cette fonction prend en paramètre la position de création de la voiture,
+    /// la rotation initiale, et l'instance d'ObjectFactory servant à la création du véhicule.
+    ///
+    Car *createPlayerCar(const Vector& position, const Rotation& rotation, ObjectFactory *carFactory);
 
     ///
     /// Permet l'assignation et la récupération du playerInput utilisé pour commander le véhicule
