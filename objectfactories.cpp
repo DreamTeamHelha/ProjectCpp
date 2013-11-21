@@ -3,6 +3,7 @@
 #include "car.h"
 #include "box.h"
 #include "tree.h"
+#include "checkpoint.h"
 
 QMap<QString, ObjectFactory*> ObjectFactories::m_factories;
 
@@ -11,6 +12,7 @@ void ObjectFactories::initialize()
     createFactory<CarFactory>("Car");
     createFactory<BoxFactory>("Box");
     createFactory<TreeFactory>("Tree");
+    createFactory<CheckpointFactory>("Checkpoint");
 
 }
 
