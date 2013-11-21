@@ -2,6 +2,7 @@
 
 #include "car.h"
 #include "box.h"
+#include "tree.h"
 
 QMap<QString, ObjectFactory*> ObjectFactories::m_factories;
 
@@ -9,6 +10,8 @@ void ObjectFactories::initialize()
 {
     createFactory<CarFactory>("Car");
     createFactory<BoxFactory>("Box");
+    createFactory<TreeFactory>("Tree");
+
 }
 
 ObjectFactory *ObjectFactories::getFactory(const QString &factoryName)
