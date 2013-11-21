@@ -5,12 +5,14 @@
 #include <QCoreApplication>
 #include <QGraphicsItem>
 #include "objectfactories.h"
+#include "tilemaploader.h"
 
-Scene::Scene(Tilemap *tilemap) :
+Scene::Scene() :
     m_graphicsScene(new QGraphicsScene),
     m_physicsWorld(new b2World(Vector(0,0))),
     m_playerInput(nullptr),
-    m_tilemap(tilemap)
+    m_tilemap(nullptr),
+    m_loaded(false)
 
 {
 }
@@ -36,10 +38,20 @@ b2World *Scene::physicsWorld() const
     return m_physicsWorld;
 }
 
-bool Scene::load()
+bool Scene::load(const QString &levelName)
 {
+    //Permet de vérifier que la scène ne soit pas chargée plusieurs fois
+    if(m_loaded)
+    {
+        return false;
+    }
+
+    m_tilemap= TilemapLoader::load(QCoreApplication::applicationDirPath()+"/data/tracks/"+levelName+".png");
     //Chargement de la map
-    loadMap();
+    if(!loadMap())
+    {
+        return false;
+    }
 
     // récupération des factories
     ObjectFactory *factory = ObjectFactories::getFactory("Car");
@@ -56,25 +68,7 @@ bool Scene::load()
         m_objects.insert(m_car);
     }
 
-    /*
-    // création de deux boites
-    BoxFactory boxFactory;
-    boxFactory.setScene(this);
-
-    boxFactory.setPosition(Vector(-20, -20));
-    boxFactory.setRotation(Rotation::degrees(45));
-    m_objects.insert( boxFactory.create() );
-    boxFactory.setPosition(Vector(20,-20));
-    boxFactory.setRotation(Rotation());
-    m_objects.insert( boxFactory.create() );
-
-    // création d'un arbre
-    TreeFactory treeFactory;
-    treeFactory.setScene(this);
-
-    treeFactory.setPosition(Vector(-50,-50));
-    m_objects.insert(treeFactory.create());
-    //*/
+    m_loaded=true;
     return true;
 }
 
@@ -128,18 +122,18 @@ void Scene::update()
     }
 }
 
-void Scene::loadMap()
+bool Scene::loadMap()
 {
     QPixmap *grassTile = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tiles/GrassTile.png");
     if (grassTile->isNull())
     {
-        QMessageBox::information(nullptr, "Erreur", "L'image n'est pas trouvée!");
+       return false;
     }
 
     QPixmap *roadTile = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tiles/RoadTile.png");
     if (roadTile->isNull())
     {
-        QMessageBox::information(nullptr, "Erreur", "L'image n'est pas trouvée!");
+        return false;
     }
 
     for(int x=0;x<m_tilemap->width();x++)
@@ -157,6 +151,7 @@ void Scene::loadMap()
             this->graphicsScene()->addItem(item);
         }
     }
+    return true;
 
 }
 
@@ -168,4 +163,9 @@ Vector Scene::calcViewPoint()
         viewPoint = Vector(m_car->physicsBody()->GetPosition());
     }
     return viewPoint;
+}
+
+bool Scene::loaded() const
+{
+    return m_loaded;
 }

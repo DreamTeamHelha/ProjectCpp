@@ -9,7 +9,7 @@ int main(int argc, char ** argv)
 {
     QApplication app(argc, argv);
     GameWindow gameWindow;
-    Scene scene(TilemapLoader::load(QCoreApplication::applicationDirPath()+"/data/tracks/Raph_Paradise"));
+    Scene scene;
 
     // -- test -- paramétrage de la scène
     gameWindow.setScene(&scene);
@@ -19,7 +19,7 @@ int main(int argc, char ** argv)
     ObjectFactories::initialize();
 
     // chargement de la map
-    scene.load();
+    scene.load("Raph_Paradise");
 
     // exécution du programme
     gameWindow.show();

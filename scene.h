@@ -16,7 +16,7 @@ class Scene
 {
 public:
 
-    Scene(Tilemap*);
+    Scene();
     virtual ~Scene();
 
     ///
@@ -28,7 +28,7 @@ public:
     ///
     /// Charge la scène
     ///
-    bool load();
+    bool load(const QString & levelName);
 
     ///
     /// Ajoute un objet à la scène
@@ -56,6 +56,11 @@ public:
     ///
     Vector calcViewPoint();
 
+    ///
+    ///Permet de récupérer l'état de chargement de la scène
+    ///
+    bool loaded()const;
+
 private:
 
     QGraphicsScene      *m_graphicsScene;
@@ -64,10 +69,11 @@ private:
     Car                 *m_car;
     std::set<Object*>    m_objects;
     Tilemap             *m_tilemap;
+    bool                 m_loaded;
 
     ///
     /// Permet de charger la map
     ///
-    void loadMap();
+    bool loadMap();
 
 };
