@@ -30,7 +30,7 @@ public:
     ///
     /// Charge la scène
     ///
-    bool load(const QString & levelName);
+    bool load(const QString& levelName, const QString& carClassName);
 
     ///
     /// Ajoute un objet à la scène

@@ -4,6 +4,11 @@
 #include "rotation.h"
 #include "vector.h"
 #include <cstdlib>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QFile>
+#include <QJsonArray>
+
 using namespace::std;
 
 ObjectLoader::ObjectLoader()
@@ -20,8 +25,21 @@ void ObjectLoader::setScene(Scene *scene)
     m_scene=scene;
 }
 
+const QString& ObjectLoader::carClassName() const
+{
+    return m_carClassName;
+}
+
+void ObjectLoader::setCarClassName(const QString &carClassName)
+{
+    m_carClassName = carClassName;
+}
+
 bool ObjectLoader::load(const QString& filename)
 {
+    if (!m_scene)
+        return false;
+
     QString val;
     QJsonObject item;
     QString className;
@@ -52,18 +70,33 @@ bool ObjectLoader::load(const QString& filename)
         Rotation rotation=Rotation::degrees(item["rot"].toDouble());
         Vector position(x,y);
 
-        ObjectFactory *objectFactory = ObjectFactories::getFactory(className);
-        if(objectFactory)
+        ObjectFactory *objectFactory(nullptr);
+
+        /// Cas spécial : l'objet playerStart définis la position et la rotation de la voiture du joueur.
+        if (className == "PlayerStart")
         {
-            objectFactory->setScene(m_scene);
-            objectFactory->setPosition(position);
-            objectFactory->setRotation(rotation);
-            Object *obj=objectFactory->create();
-            if(obj)
-            {
-               m_scene->addObject(obj);
-            }
+           objectFactory = ObjectFactories::getFactory(m_carClassName);
+           if (objectFactory)
+           {
+               m_scene->createPlayerCar(position, rotation, objectFactory);
+           }
         }
+        /// Sinon on recherche la factory et on crée un objet avec.
+        else
+        {
+            objectFactory = ObjectFactories::getFactory(className);
+            if(objectFactory)
+            {
+                objectFactory->setScene(m_scene);
+                objectFactory->setPosition(position);
+                objectFactory->setRotation(rotation);
+                Object *obj=objectFactory->create();
+                if(obj)
+                {
+                   m_scene->addObject(obj);
+                }
+            }
+         }
     }
     return true;
 }

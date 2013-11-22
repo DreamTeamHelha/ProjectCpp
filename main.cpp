@@ -19,7 +19,7 @@ int main(int argc, char ** argv)
     ObjectFactories::initialize();
 
     // chargement de la map
-    scene.load("Raph_Paradise");
+    scene.load("Raph_Paradise", "Car");
 
     // exécution du programme
     gameWindow.show();

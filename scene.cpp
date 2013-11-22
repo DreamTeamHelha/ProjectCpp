@@ -45,7 +45,7 @@ b2World *Scene::physicsWorld() const
     return m_physicsWorld;
 }
 
-bool Scene::load(const QString &levelName)
+bool Scene::load(const QString &levelName, const QString &carClassName)
 {
     //Permet de vérifier que la scène ne soit pas chargée plusieurs fois
     if(m_loaded)
@@ -60,23 +60,10 @@ bool Scene::load(const QString &levelName)
         return false;
     }
 
-    // création de la voiture du joueur
-    ObjectFactory *factory = ObjectFactories::getFactory("Car");
-    if (!factory)
-    {
-        return false;
-    }
-    else
-    {
-        if (!createPlayerCar(Vector(2000,2000), Rotation(0), factory))
-        {
-            return false;
-        }
-    }
-
     // chargement des objets
     ObjectLoader objectLoader;
     objectLoader.setScene(this);
+    objectLoader.setCarClassName(carClassName);
     if (!objectLoader.load(QCoreApplication::applicationDirPath()+"/data/Tracks/"+levelName+".json"))
     {
         return false;
