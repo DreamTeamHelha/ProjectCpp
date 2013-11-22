@@ -5,7 +5,9 @@
 #include <QGraphicsItem>
 #include "objectfactories.h"
 #include "tilemaploader.h"
+#include "objectloader.h"
 #include "vector.h"
+#include <QMessageBox>
 
 
 Scene::Scene() :
@@ -51,14 +53,14 @@ bool Scene::load(const QString &levelName)
         return false;
     }
 
-    m_tilemap= TilemapLoader::load(QCoreApplication::applicationDirPath()+"/data/tracks/"+levelName+".png");
     //Chargement de la map
+    m_tilemap= TilemapLoader::load(QCoreApplication::applicationDirPath()+"/data/tracks/"+levelName+".png");
     if(!loadMap())
     {
         return false;
     }
 
-    // récupération des factories
+    // création de la voiture du joueur
     ObjectFactory *factory = ObjectFactories::getFactory("Car");
     if (!factory)
     {
@@ -70,33 +72,15 @@ bool Scene::load(const QString &levelName)
         {
             return false;
         }
-        /*
-         *Test des checkpoints
-         */
-        ObjectFactory *checkpointfactory;
-        checkpointfactory = ObjectFactories::getFactory("Checkpoint");
-        checkpointfactory->setScene(this);
-        checkpointfactory->setPosition(Vector(1800,1800));
-        checkpointfactory->setRotation(Rotation(0));
-        addObject(checkpointfactory->create());
-
-        checkpointfactory->setPosition(Vector(2200,1800));
-        addObject(checkpointfactory->create());
-
-        checkpointfactory->setPosition(Vector(1800,2200));
-        addObject(checkpointfactory->create());
-
-        m_checkpointListener->setCheckpointNumber(3);
-
-        ObjectFactory *treefactory = ObjectFactories::getFactory("Tree");
-        treefactory->setScene(this);
-        treefactory->setPosition(Vector(2200,2200));
-        treefactory->setRotation(Rotation(0));
-        addObject(treefactory->create());
-
     }
 
-
+    // chargement des objets
+    ObjectLoader objectLoader;
+    objectLoader.setScene(this);
+    if (!objectLoader.load(QCoreApplication::applicationDirPath()+"/data/Tracks/"+levelName+".json"))
+    {
+        return false;
+    }
 
     m_loaded=true;
     return true;
