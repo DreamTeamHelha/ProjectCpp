@@ -14,9 +14,9 @@ Scene::Scene() :
     m_graphicsScene(new QGraphicsScene),
     m_physicsWorld(new b2World(Vector(0,0))),
     m_playerInput(nullptr),
+    m_car(nullptr),
     m_tilemap(nullptr),
     m_loaded(false),
-    m_car(nullptr),
     m_checkpointListener(new CheckpointListener)
 {
 
