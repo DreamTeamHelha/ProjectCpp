@@ -40,7 +40,7 @@ void GameWindow::setScene(Scene *scene)
     }
     else
     {
-        ui->graphicsView->setScene(NULL);
+        ui->graphicsView->setScene(nullptr);
     }
 }
 

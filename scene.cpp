@@ -8,6 +8,7 @@
 #include "objectloader.h"
 #include "vector.h"
 #include <QMessageBox>
+#include <iostream>
 
 Scene::Scene() :
     m_graphicsScene(new QGraphicsScene),
@@ -51,20 +52,28 @@ bool Scene::load(const QString &levelName, const QString &carClassName)
         return false;
     }
 
+    std::cout << "Chargement de la tilemap" << std::endl;
     //Chargement de la map
     m_tilemap= TilemapLoader::load(QCoreApplication::applicationDirPath()+"/data/tracks/"+levelName+".png");
+    if (!m_tilemap)
+    {
+        return false;
+    }
+
+    std::cout << "LoadMap" << std::endl;
     if(!loadMap())
     {
         return false;
     }
 
+    std::cout << "Chargement des objets" << std::endl;
     // chargement des objets
     ObjectLoader objectLoader(this, carClassName);
     if (!objectLoader.load(QCoreApplication::applicationDirPath()+"/data/Tracks/"+levelName+".json"))
     {
         return false;
     }
-
+    std::cout << "Fin du chargement" << std::endl;
     m_loaded=true;
     return true;
 }

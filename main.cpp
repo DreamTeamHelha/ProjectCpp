@@ -4,6 +4,7 @@
 #include "objectfactories.h"
 #include "tilemaploader.h"
 #include <QCoreApplication>
+#include <QMessageBox>
 
 int main(int argc, char ** argv)
 {
@@ -11,17 +12,22 @@ int main(int argc, char ** argv)
     GameWindow gameWindow;
     Scene scene;
 
-    // -- test -- paramétrage de la scène
-    gameWindow.setScene(&scene);
-    scene.setPlayerInput(&gameWindow.playerInput());
-
     // initialisation des factories
     ObjectFactories::initialize();
 
     // chargement de la map
-    scene.load("Raph_Paradise", "Car");
-
+    if (scene.load("Raph_Paradise", "Car"))
+    {
+        // -- test -- paramétrage de la scène
+        gameWindow.setScene(&scene);
+        scene.setPlayerInput(&gameWindow.playerInput());
+    }
+    else
+    {
+        QMessageBox::information(nullptr, "Erreur", "Le chargement de la map à échoué", 0);
+    }
     // exécution du programme
+
     gameWindow.show();
     int returnCode = app.exec();
 
