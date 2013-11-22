@@ -12,6 +12,7 @@
 #include "tree.h"
 #include "tilemap.h"
 #include "objectfactory.h"
+#include "checkpointlistener.h"
 
 class Scene
 {
@@ -70,6 +71,10 @@ public:
     ///
     bool loaded()const;
 
+    ///
+    ///
+    ///
+    bool isFinished() const;
 private:
 
     QGraphicsScene      *m_graphicsScene;
@@ -79,6 +84,7 @@ private:
     std::set<Object*>    m_objects;
     Tilemap             *m_tilemap;
     bool                 m_loaded;
+    CheckpointListener  *m_checkpointListener;
 
     ///
     /// Permet de charger la map

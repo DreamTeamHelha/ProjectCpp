@@ -6,7 +6,7 @@
 #include "objectfactories.h"
 #include "tilemaploader.h"
 #include "vector.h"
-#include "checkpointlistener.h"
+
 
 Scene::Scene() :
     m_graphicsScene(new QGraphicsScene),
@@ -14,8 +14,12 @@ Scene::Scene() :
     m_playerInput(nullptr),
     m_tilemap(nullptr),
     m_loaded(false),
-    m_car(nullptr)
+    m_car(nullptr),
+    m_checkpointListener(new CheckpointListener)
 {
+
+    //Ajout du listener de contact
+    m_physicsWorld->SetContactListener(m_checkpointListener);
 }
 
 Scene::~Scene()
@@ -66,6 +70,9 @@ bool Scene::load(const QString &levelName)
         {
             return false;
         }
+        /*
+         *Test des checkpoints
+         */
         ObjectFactory *checkpointfactory;
         checkpointfactory = ObjectFactories::getFactory("Checkpoint");
         checkpointfactory->setScene(this);
@@ -73,10 +80,23 @@ bool Scene::load(const QString &levelName)
         checkpointfactory->setRotation(Rotation(0));
         addObject(checkpointfactory->create());
 
+        checkpointfactory->setPosition(Vector(2200,1800));
+        addObject(checkpointfactory->create());
+
+        checkpointfactory->setPosition(Vector(1800,2200));
+        addObject(checkpointfactory->create());
+
+        m_checkpointListener->setCheckpointNumber(3);
+
+        ObjectFactory *treefactory = ObjectFactories::getFactory("Tree");
+        treefactory->setScene(this);
+        treefactory->setPosition(Vector(2200,2200));
+        treefactory->setRotation(Rotation(0));
+        addObject(treefactory->create());
+
     }
 
-    //Ajout du listener de contact
-    m_physicsWorld->SetContactListener(new CheckpointListener(this));
+
 
     m_loaded=true;
     return true;
@@ -224,3 +244,9 @@ bool Scene::loaded() const
 {
     return m_loaded;
 }
+
+bool Scene::isFinished()const
+{
+    return !m_checkpointListener->hasCheckpointRemaining();
+}
+

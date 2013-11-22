@@ -2,6 +2,7 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
 #include <SFML/System/Time.hpp>
+#include <QMessageBox>
 
 GameWindow::GameWindow(QWidget *parent) :
     QDialog(parent),
@@ -100,5 +101,9 @@ void GameWindow::timerEvent(QTimerEvent *)
     {
         m_scene->update();
         ui->graphicsView->centerOn(m_scene->calcViewPoint());
+        if(m_scene->isFinished())
+        {
+          //QMessageBox::information(nullptr, "Réussite", "Fin de course!");
+        }
     }
 }

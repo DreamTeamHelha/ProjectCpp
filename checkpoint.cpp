@@ -6,7 +6,7 @@
 #include <QMessageBox>
 
 Checkpoint::Checkpoint(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
-    Object(graphicsItem, physicsBody)
+    Object(graphicsItem, physicsBody),m_touched(false)
 {
 }
 
@@ -44,7 +44,24 @@ Object* CheckpointFactory::create() const
 
 
 
+
     // création du checkpoint et le retourne
     Checkpoint *checkpoint = new Checkpoint(graphics, body);
+
+    fixture->SetUserData((void*)checkpoint);
+
     return checkpoint;
+}
+
+void Checkpoint::touch()
+{
+    if(!m_touched)
+    {
+        m_touched = true;
+        graphicsItem()->hide();
+    }
+}
+bool Checkpoint::touched()
+{
+    return m_touched;
 }
