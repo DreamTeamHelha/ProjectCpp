@@ -9,7 +9,6 @@
 #include "vector.h"
 #include <QMessageBox>
 
-
 Scene::Scene() :
     m_graphicsScene(new QGraphicsScene),
     m_physicsWorld(new b2World(Vector(0,0))),
@@ -19,7 +18,6 @@ Scene::Scene() :
     m_loaded(false),
     m_checkpointListener(new CheckpointListener)
 {
-
     //Ajout du listener de contact
     m_physicsWorld->SetContactListener(m_checkpointListener);
 }
@@ -128,7 +126,7 @@ const Tilemap *Scene::tilemap() const
 void Scene::update()
 {
     /// Commande le véhicule
-    if (m_playerInput)
+    if (m_playerInput && m_car)
     {
         m_car->step(m_playerInput->throttle(), m_playerInput->brakes(), m_playerInput->turnRight()-m_playerInput->turnLeft());
     }
@@ -145,6 +143,7 @@ void Scene::update()
 
 bool Scene::loadMap()
 {
+    // chargement des images
     QPixmap *grassTile = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tiles/GrassTile.png");
     if (grassTile->isNull())
     {
@@ -157,6 +156,7 @@ bool Scene::loadMap()
         return false;
     }
 
+    // remplissage de la scène graphique avec les tuiles
     for(int x=0;x<m_tilemap->width();x++)
     {
         for(int y=0;y<m_tilemap->height();y++)
@@ -172,11 +172,12 @@ bool Scene::loadMap()
             this->graphicsScene()->addItem(item);
         }
     }
+
+    // ajoute des "murs" autour de la scène pour éviter que des objets ne sortent de la zone de jeu
     Vector v1;
     Vector v2(m_tilemap->width()*32,0.f);
     Vector v3(0.f,m_tilemap->height()*32);
     Vector v4(m_tilemap->width()*32,m_tilemap->height()*32);
-
 
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
@@ -194,9 +195,7 @@ bool Scene::loadMap()
     lineBottom.Set(v3,v4);
     body->CreateFixture(&lineBottom,1);
 
-
     return true;
-
 }
 
 Vector Scene::calcViewPoint()

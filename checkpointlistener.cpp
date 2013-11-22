@@ -2,9 +2,11 @@
 #include <QMessageBox>
 #include "checkpoint.h"
 
-CheckpointListener::CheckpointListener():m_checkpointRemaining(-1)
+CheckpointListener::CheckpointListener():
+    m_checkpointRemaining(-1)
 {
 }
+
 void CheckpointListener::BeginContact (b2Contact *contact)
 {
     void *data = contact->GetFixtureB()->GetUserData();
