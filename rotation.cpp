@@ -1,9 +1,9 @@
 #include "rotation.h"
 #include "vector.h"
 #include <cmath>
-#include "mathutils.h"
+#include "utils.h"
 
-const float Rotation::m_maxAngle = 2 * mathutils::pi();
+const float Rotation::m_maxAngle = 2 * utils::pi();
 
 Rotation::operator Vector() const
 {
@@ -30,7 +30,7 @@ bool operator<(const Rotation& left, const Rotation & right)
     if (right == left)
         return false;
     else
-        return (right - left).angle() <= mathutils::pi();
+        return (right - left).angle() <= utils::pi();
 }
 
 bool operator>(const Rotation& left, const Rotation & right)
@@ -38,7 +38,7 @@ bool operator>(const Rotation& left, const Rotation & right)
     if (right == left)
         return false;
     else
-        return (right - left).angle() >= mathutils::pi();
+        return (right - left).angle() >= utils::pi();
 }
 
 bool operator<=(const Rotation& left, const Rotation & right)
@@ -46,7 +46,7 @@ bool operator<=(const Rotation& left, const Rotation & right)
     if (right == left)
         return true;
     else
-        return (right - left).angle() <= mathutils::pi();
+        return (right - left).angle() <= utils::pi();
 }
 
 bool operator>=(const Rotation& left, const Rotation & right)
@@ -54,5 +54,5 @@ bool operator>=(const Rotation& left, const Rotation & right)
     if (right == left)
         return true;
     else
-        return (right - left).angle() >= mathutils::pi();
+        return (right - left).angle() >= utils::pi();
 }

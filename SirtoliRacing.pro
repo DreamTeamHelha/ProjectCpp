@@ -120,7 +120,6 @@ HEADERS += \
     Box2D/Dynamics/Joints/b2FrictionJoint.h \
     Box2D/Dynamics/Joints/b2DistanceJoint.h \
     Box2D/Rope/b2Rope.h \
-    mathutils.h \
     car.h \
     vector.h \
     rotation.h \
@@ -136,7 +135,8 @@ HEADERS += \
     objectfactories.h \
     checkpoint.h \
     checkpointlistener.h \
-    objectloader.h
+    objectloader.h \
+    utils.h
 
 FORMS += \
     gamewindow.ui

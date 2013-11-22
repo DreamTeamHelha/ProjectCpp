@@ -1,5 +1,5 @@
 #include "scene.h"
-#include "mathutils.h"
+#include "utils.h"
 #include <SFML/System/Time.hpp>
 #include <QCoreApplication>
 #include <QGraphicsItem>

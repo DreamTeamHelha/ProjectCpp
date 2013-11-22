@@ -1,5 +1,5 @@
 #include "box.h"
-#include "mathutils.h"
+#include "utils.h"
 #include <QGraphicsRectItem>
 #include <Box2D/Box2D.h>
 #include "scene.h"
@@ -11,10 +11,9 @@ Box::Box(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 {
 }
 
-
 Object* BoxFactory::create() const
 {
-    using mathutils::toRadians;
+    using utils::toRadians;
 
     if (!scene())
         return nullptr;

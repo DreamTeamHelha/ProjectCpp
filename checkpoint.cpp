@@ -1,5 +1,5 @@
 #include "checkpoint.h"
-#include "mathutils.h"
+#include "utils.h"
 #include <Box2D/Box2D.h>
 #include "scene.h"
 #include <QCoreApplication>
@@ -12,7 +12,7 @@ Checkpoint::Checkpoint(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 
 Object* CheckpointFactory::create() const
 {
-    using mathutils::toRadians;
+    using utils::toRadians;
 
     if(!scene())
         return nullptr;

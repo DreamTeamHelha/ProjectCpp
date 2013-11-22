@@ -1,5 +1,5 @@
 #include "car.h"
-#include "mathutils.h"
+#include "utils.h"
 #include <cmath>
 #include <iostream>
 #include "vector.h"
@@ -22,22 +22,23 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
         // direction
         if (steering != 0)
         {
-            steering *= 150000 * Vector(physicsBody()->GetLinearVelocity()).length();
-            physicsBody()->ApplyTorque(steering);
+            steering *= 300000 * Vector(physicsBody()->GetLinearVelocity()).length();
+            physicsBody()->ApplyAngularImpulse(steering);
         }
 
         // accélération
         float accel = 0;
 
         if (throttle > 0)
-            accel += 200000;
+            accel += 1000000;
         if (brakes > 0)
-           accel -= 100000;
+           accel -= 500000;
 
         Vector vAccel = (Vector)(Rotation::radians(physicsBody()->GetAngle()));
         vAccel *= accel;
 
-        physicsBody()->ApplyForceToCenter(vAccel);
+        physicsBody()->ApplyLinearImpulse(vAccel, physicsBody()->GetWorldCenter());
+        //physicsBody()->SetLinearVelocity((Vector)physicsBody()->GetLinearVelocity() + vAccel);
 
         // adhérence
         //*
@@ -51,21 +52,20 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
     }
 }
 
-
 Object *CarFactory::create() const
 {
-    using mathutils::toRadians;
+    using utils::toRadians;
 
     if (!scene())
         return nullptr;
 
     // création de la partie visible
     QPixmap *pixmap = new QPixmap(QCoreApplication::applicationDirPath() + "/data/carSirto.png");
-   if (pixmap->isNull())
-   {
+    if (pixmap->isNull())
+    {
        QMessageBox::information(nullptr, "Erreur", "L'image n'est pas trouvée!");
-   }
-   QGraphicsPixmapItem *graphics = new QGraphicsPixmapItem(*pixmap);
+    }
+    QGraphicsPixmapItem *graphics = new QGraphicsPixmapItem(*pixmap);
     graphics->setPos(position());
     graphics->setRotation(rotation().degrees());
     scene()->graphicsScene()->addItem(graphics);
@@ -84,7 +84,7 @@ Object *CarFactory::create() const
     // - création de la forme
     b2PolygonShape shape;
     shape.SetAsBox(33, 17);
-    body->CreateFixture(&shape, 1);
+    body->CreateFixture(&shape, 100);
 
     // création de la box et la retourne
     Car *car = new Car(graphics, body);

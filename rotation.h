@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "mathutils.h"
+#include "utils.h"
 
 class Vector;
 
@@ -40,7 +40,7 @@ public:
 
     float degrees() const
     {
-        return mathutils::toDegrees(m_angle);
+        return utils::toDegrees(m_angle);
     }
 
     static Rotation radians(float radians)
@@ -50,7 +50,7 @@ public:
 
     static Rotation degrees(float degrees)
     {
-        return Rotation(mathutils::toRadians(degrees));
+        return Rotation(utils::toRadians(degrees));
     }
 
     explicit operator Vector() const;
@@ -137,5 +137,5 @@ inline Rotation& operator/=(Rotation& rotation, float factor)
 
 inline Rotation operator-(const Rotation& rotation)
 {
-    return Rotation(rotation.angle() + mathutils::pi());
+    return Rotation(rotation.angle() + utils::pi());
 }

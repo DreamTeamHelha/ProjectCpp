@@ -1,6 +1,6 @@
 #pragma once
 
-namespace mathutils
+namespace utils
 {
     inline float pi()
     {
