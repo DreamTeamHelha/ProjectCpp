@@ -11,7 +11,9 @@
 
 using namespace::std;
 
-ObjectLoader::ObjectLoader()
+ObjectLoader::ObjectLoader(Scene *scene, const QString &carClassName) :
+    m_scene(scene),
+    m_carClassName(carClassName)
 {
 }
 
@@ -20,19 +22,9 @@ Scene *ObjectLoader::scene()const
     return m_scene;
 }
 
-void ObjectLoader::setScene(Scene *scene)
-{
-    m_scene=scene;
-}
-
 const QString& ObjectLoader::carClassName() const
 {
     return m_carClassName;
-}
-
-void ObjectLoader::setCarClassName(const QString &carClassName)
-{
-    m_carClassName = carClassName;
 }
 
 bool ObjectLoader::load(const QString& filename)

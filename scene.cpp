@@ -61,9 +61,7 @@ bool Scene::load(const QString &levelName, const QString &carClassName)
     }
 
     // chargement des objets
-    ObjectLoader objectLoader;
-    objectLoader.setScene(this);
-    objectLoader.setCarClassName(carClassName);
+    ObjectLoader objectLoader(this, carClassName);
     if (!objectLoader.load(QCoreApplication::applicationDirPath()+"/data/Tracks/"+levelName+".json"))
     {
         return false;

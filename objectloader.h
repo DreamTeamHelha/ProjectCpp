@@ -12,19 +12,17 @@ class ObjectLoader
 {
 public:
 
-    ObjectLoader();
+    ObjectLoader(Scene *scene, const QString& carClassName);
 
     ///
     /// Scène dans laquelle les objets doivent être créés.
     ///
     Scene *scene() const;
-    void setScene(Scene*);
 
     ///
     /// Nom de la classe de la voiture du joueur
     ///
     const QString& carClassName() const;
-    void setCarClassName(const QString& carClassName);
 
     ///
     /// Charge les objets et les ajoute à la scène.
