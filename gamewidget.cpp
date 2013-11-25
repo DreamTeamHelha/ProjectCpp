@@ -81,8 +81,11 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
         break;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
 =======
 >>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
 =======
@@ -94,7 +97,10 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
 =======
 >>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
 =======
