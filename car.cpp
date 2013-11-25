@@ -17,7 +17,8 @@ Car::Car(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 
 void Car::step(qreal throttle, qreal brakes, qreal steering)
 {
-    float maxTorque = 25000000; // prochainement propriété de la voiture
+    float maxTorque = 25000000;   // prochainement propriété de la voiture
+    float maxLateralFriction = 5; // ''
 
     if (physicsBody())
     {
@@ -55,6 +56,14 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
         Vector velocity = physicsBody()->GetLinearVelocity();
         Vector normal = physicsBody()->GetWorldVector(Vector(0,1));
         float lateralFriction = b2Dot(normal, velocity);
+        if (lateralFriction > maxLateralFriction)
+        {
+            lateralFriction = maxLateralFriction;
+        }
+        else if (lateralFriction <- maxLateralFriction)
+        {
+            lateralFriction = -maxLateralFriction;
+        }
         normal *= lateralFriction;
 
         Vector impulse = -normal * physicsBody()->GetMass();
