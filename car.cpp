@@ -17,12 +17,22 @@ Car::Car(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 
 void Car::step(qreal throttle, qreal brakes, qreal steering)
 {
+    float maxTorque = 25000000; // prochainement propriété de la voiture
+
     if (physicsBody())
     {
         // direction
         if (steering != 0)
         {
             steering *= 300000 * Vector(physicsBody()->GetLinearVelocity()).length();
+            if (steering > maxTorque)
+            {
+                steering = maxTorque;
+            }
+            else if (steering < -maxTorque)
+            {
+                steering = -maxTorque;
+            }
             physicsBody()->ApplyAngularImpulse(steering);
         }
 
@@ -30,7 +40,7 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
         float accel = 0;
 
         if (throttle > 0)
-            accel += 100000000;
+            accel += 1000000;
         if (brakes > 0)
            accel -= 500000;
 
