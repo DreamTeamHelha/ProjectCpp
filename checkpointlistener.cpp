@@ -1,6 +1,7 @@
 #include "checkpointlistener.h"
 #include <QMessageBox>
 #include "checkpoint.h"
+#include "car.h"
 
 CheckpointListener::CheckpointListener():
     m_checkpointRemaining(-1)
@@ -9,16 +10,25 @@ CheckpointListener::CheckpointListener():
 
 void CheckpointListener::BeginContact (b2Contact *contact)
 {
-    void *data = contact->GetFixtureB()->GetUserData();
-    if(data)
+    void *dataCar = contact->GetFixtureA()->GetUserData();
+    if(dataCar)
     {
-        Checkpoint *checkpoint = (Checkpoint *)(contact->GetFixtureB()->GetUserData());
-        if(checkpoint)
+        Car *car = (Car *)(contact->GetFixtureA()->GetUserData());
+        if(car)
         {
-            if(!checkpoint->touched())
+
+            void *dataCheckpoint = contact->GetFixtureB()->GetUserData();
+            if(dataCheckpoint)
             {
-                checkpoint->touch();
-                m_checkpointRemaining--;
+                Checkpoint *checkpoint = (Checkpoint *)(contact->GetFixtureB()->GetUserData());
+                if(checkpoint)
+                {
+                    if(!checkpoint->touched())
+                    {
+                        checkpoint->touch();
+                        m_checkpointRemaining--;
+                    }
+                }
             }
         }
     }

@@ -84,9 +84,12 @@ Object *CarFactory::create() const
     // - création de la forme
     b2PolygonShape shape;
     shape.SetAsBox(33, 17);
-    body->CreateFixture(&shape, 100);
+    b2Fixture *fixture =  body->CreateFixture(&shape, 100);
+
+
 
     // création de la box et la retourne
     Car *car = new Car(graphics, body);
+    fixture->SetUserData((void *)car);
     return car;
 }
