@@ -30,7 +30,7 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
         float accel = 0;
 
         if (throttle > 0)
-            accel += 1000000;
+            accel += 100000000;
         if (brakes > 0)
            accel -= 500000;
 

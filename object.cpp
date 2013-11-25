@@ -1,5 +1,5 @@
 #include "object.h"
-#include "mathutils.h"
+#include "utils.h"
 
 Object::Object(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
     m_graphicsItem(graphicsItem),
@@ -26,7 +26,7 @@ b2Body *Object::physicsBody() const
 
 void Object::update()
 {
-    using mathutils::toDegrees;
+    using utils::toDegrees;
 
     if (m_graphicsItem && m_physicsBody)
     {
