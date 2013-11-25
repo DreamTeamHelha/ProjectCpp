@@ -209,14 +209,21 @@ bool Scene::loadMap()
     return true;
 }
 
-Vector Scene::calcViewPoint()
+View Scene::calcViewPoint()
 {
-    Vector viewPoint;
+    View view;
     if (m_car)
     {
+        Vector viewPoint;
         viewPoint = Vector(m_car->physicsBody()->GetPosition());
+        viewPoint += Vector(m_car->physicsBody()->GetLinearVelocity()) * 0.2f;
+        view.setPosition(viewPoint);
+
+        // zoom à venir
+        //view.setZoom(.5);
+        //view.setZoom( Vector(m_car->physicsBody()->GetLinearVelocity()).length() );
     }
-    return viewPoint;
+    return view;
 }
 
 bool Scene::loaded() const

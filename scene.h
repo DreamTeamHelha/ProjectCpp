@@ -14,6 +14,7 @@
 #include "objectfactory.h"
 #include "checkpointlistener.h"
 #include <QTime>
+#include "view.h"
 
 class Scene
 {
@@ -65,7 +66,7 @@ public:
     ///
     /// Calcule le point de vue de la caméra
     ///
-    Vector calcViewPoint();
+    View calcViewPoint();
 
     ///
     ///Permet de récupérer l'état de chargement de la scène

@@ -74,7 +74,8 @@ SOURCES += \
     menu.cpp \
     formtools.cpp \
     mainwindow.cpp \
-    menuingame.cpp
+    menuingame.cpp \
+    view.cpp
 
 HEADERS += \
     scene.h \
@@ -147,7 +148,8 @@ HEADERS += \
     menu.h \
     formtools.h \
     mainwindow.h \
-    menuingame.h
+    menuingame.h \
+    view.h
 
 FORMS += \
     gamewindow.ui \

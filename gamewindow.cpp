@@ -100,8 +100,13 @@ void GameWindow::timerEvent(QTimerEvent *)
 {
     if (m_scene)
     {
+        /// mise à jour de la scène
         m_scene->update();
-        ui->graphicsView->centerOn(m_scene->calcViewPoint());
+
+        /// mise à jour de la caméra
+        View view = m_scene->calcViewPoint();
+        ui->graphicsView->centerOn(view.position());
+        ui->graphicsView->scale(view.zoom(), view.zoom());
         if(m_scene->isFinished())
         {
           //QMessageBox::information(nullptr, "Réussite", "Fin de course!");

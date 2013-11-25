@@ -34,9 +34,6 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
 
         //Démarrage du timer de temps
         scene->start();
-
-
-
     }
 }
 
@@ -126,8 +123,15 @@ void GameWidget::timerEvent(QTimerEvent *)
         }
         else
         {
+            /// mise à jour de la scène
             m_scene->update();
-            centerOn(m_scene->calcViewPoint());
+
+            /// mise à jour de la caméra
+            View view = m_scene->calcViewPoint();
+            centerOn(view.position());
+            scale(view.zoom(), view.zoom());
+
+            /// mise à jour du compteur
             QString timeString;
             timeString.number(m_scene->time().elapsed()/1000);
             m_timeLabel.setText(timeString);
