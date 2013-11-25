@@ -5,8 +5,8 @@
 
 GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     QGraphicsView(parent),
-    m_timeLabel("Test"),
-    m_scene(scene)
+    m_scene(scene),
+    m_timeLabel("Test")
 {
     if (!scene)
     {
@@ -76,16 +76,11 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
         m_playerInput.setTurnRight(true);
         break;
-<<<<<<< HEAD
-    case Qt::Key_Escape:
-        system("PAUSE");
-=======
 
     case Qt::Key_Escape:
         m_playerInput.setPause(true);
         break;
 
->>>>>>> 3f7c1e9cdbdb854374365aeb9858b516e619758e
     default:
          QGraphicsView::keyPressEvent(event);
     }
