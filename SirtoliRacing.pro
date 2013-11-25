@@ -1,4 +1,5 @@
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+
 
 DEFINES += SFML_STATIC
 
@@ -72,7 +73,8 @@ SOURCES += \
     gamewidget.cpp \
     menu.cpp \
     formtools.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    menuingame.cpp
 
 HEADERS += \
     scene.h \
@@ -144,11 +146,13 @@ HEADERS += \
     gamewidget.h \
     menu.h \
     formtools.h \
-    mainwindow.h
+    mainwindow.h \
+    menuingame.h
 
 FORMS += \
     gamewindow.ui \
     formtools.ui \
     mainwindow.ui \
     menu.ui \
-    tools.ui
+    tools.ui \
+    menuingame.ui

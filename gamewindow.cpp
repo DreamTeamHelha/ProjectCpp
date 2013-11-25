@@ -90,6 +90,7 @@ void GameWindow::keyReleaseEvent(QKeyEvent *event)
         m_playerInput.setTurnRight(false);
         break;
 
+
     default:
          QDialog::keyReleaseEvent(event);
     }

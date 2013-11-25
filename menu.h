@@ -2,7 +2,7 @@
 #define MENU_H
 
 #include <QWidget>
-
+#include<QSound>
 namespace Ui {
 class Menu;
 }
@@ -10,7 +10,8 @@ class Menu;
 class Menu : public QWidget
 {
     Q_OBJECT
-
+private:
+    QSound *m_soundMenu;
 public:
     explicit Menu(QWidget *parent = 0);
 

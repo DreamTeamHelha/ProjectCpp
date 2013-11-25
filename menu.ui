@@ -50,10 +50,6 @@
    <property name="text">
     <string/>
    </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>SirtoliRacing/data/img/RaceMenu.png</normaloff>SirtoliRacing/data/img/RaceMenu.png</iconset>
-   </property>
    <property name="iconSize">
     <size>
      <width>400</width>
@@ -73,10 +69,6 @@
    <property name="text">
     <string/>
    </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>SirtoliRacing/data/img/tools.jpg</normaloff>SirtoliRacing/data/img/tools.jpg</iconset>
-   </property>
    <property name="iconSize">
     <size>
      <width>275</width>
@@ -95,10 +87,6 @@
    </property>
    <property name="text">
     <string/>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>SirtoliRacing/data/img/formulaExit.jpg</normaloff>SirtoliRacing/data/img/formulaExit.jpg</iconset>
    </property>
    <property name="iconSize">
     <size>

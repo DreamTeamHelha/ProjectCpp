@@ -67,7 +67,8 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
         m_playerInput.setTurnRight(true);
         break;
-
+    case Qt::Key_Escape:
+        system("PAUSE");
     default:
          QGraphicsView::keyPressEvent(event);
     }
