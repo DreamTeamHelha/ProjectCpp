@@ -5,6 +5,7 @@
 
 GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     QGraphicsView(parent),
+    m_timeLabel("Test"),
     m_scene(scene)
 {
     if (!scene)
@@ -17,6 +18,8 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     }
     else
     {
+        m_timeLabel.show();
+        m_timeLabel.setGeometry(0,0,100,100);
         // prépare la scène pour l'affichage
         this->setScene(scene->graphicsScene());
         this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -28,6 +31,12 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
 
         // démarrage du timer de rafraichissement du jeu
         startTimer(sf::seconds(1/60.f).asMilliseconds());
+
+        //Démarrage du timer de temps
+        scene->start();
+
+
+
     }
 }
 
@@ -110,11 +119,18 @@ void GameWidget::timerEvent(QTimerEvent *)
 {
     if (m_scene)
     {
-        m_scene->update();
-        centerOn(m_scene->calcViewPoint());
+
         if(m_scene->isFinished())
         {
           //QMessageBox::information(nullptr, "Réussite", "Fin de course!");
+        }
+        else
+        {
+            m_scene->update();
+            centerOn(m_scene->calcViewPoint());
+            QString timeString;
+            timeString.number(m_scene->time().elapsed()/1000);
+            m_timeLabel.setText(timeString);
         }
     }
 }

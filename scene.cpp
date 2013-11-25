@@ -17,10 +17,12 @@ Scene::Scene() :
     m_car(nullptr),
     m_tilemap(nullptr),
     m_loaded(false),
-    m_checkpointListener(new CheckpointListener)
+    m_checkpointListener(new CheckpointListener),
+    m_time()
 {
     //Ajout du listener de contact
     m_physicsWorld->SetContactListener(m_checkpointListener);
+    m_checkpointListener->setCheckpointNumber(1);
 }
 
 Scene::~Scene()
@@ -225,5 +227,15 @@ bool Scene::loaded() const
 bool Scene::isFinished()const
 {
     return !m_checkpointListener->hasCheckpointRemaining();
+}
+
+void Scene::start()
+{
+    m_time.start();
+}
+
+const QTime & Scene::time()const
+{
+    return m_time;
 }
 

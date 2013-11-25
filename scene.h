@@ -13,6 +13,7 @@
 #include "tilemap.h"
 #include "objectfactory.h"
 #include "checkpointlistener.h"
+#include <QTime>
 
 class Scene
 {
@@ -72,9 +73,21 @@ public:
     bool loaded()const;
 
     ///
-    ///
+    ///Permet de dire si la course est finie ou non
     ///
     bool isFinished() const;
+
+    ///
+    /// Permet de démarrer la partie
+    ///
+    void start();
+
+    ///
+    /// Permet de récuperer le temps de la scène
+    ///
+    const QTime & time()const;
+
+
 private:
 
     QGraphicsScene      *m_graphicsScene;
@@ -85,6 +98,7 @@ private:
     Tilemap             *m_tilemap;
     bool                 m_loaded;
     CheckpointListener  *m_checkpointListener;
+    QTime                m_time;
 
     ///
     /// Permet de charger la map
