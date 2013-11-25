@@ -21,10 +21,14 @@ public:
     bool turnRight() const;
     void setTurnRight(bool enabled);
 
+    bool pause() const;
+    void setPause(bool enabled);
+
 private:
 
     bool m_throttle;
     bool m_brakes;
     bool m_turnLeft;
     bool m_turnRight;
+    bool m_pause;
 };
