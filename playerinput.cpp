@@ -4,7 +4,8 @@ PlayerInput::PlayerInput() :
     m_throttle(false),
     m_brakes(false),
     m_turnLeft(false),
-    m_turnRight(false)
+    m_turnRight(false),
+    m_pause(false)
 {
 }
 
@@ -46,4 +47,14 @@ bool PlayerInput::turnRight() const
 void PlayerInput::setTurnRight(bool enabled)
 {
     m_turnRight = enabled;
+}
+
+bool PlayerInput::pause() const
+{
+    return m_pause;
+}
+
+void PlayerInput::setPause(bool enabled)
+{
+    m_pause = enabled;
 }
