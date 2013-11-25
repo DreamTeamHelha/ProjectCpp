@@ -69,7 +69,10 @@ SOURCES += \
     checkpoint.cpp \
     checkpointlistener.cpp \
     objectloader.cpp \
-    gamewidget.cpp
+    gamewidget.cpp \
+    menu.cpp \
+    formtools.cpp \
+    mainwindow.cpp
 
 HEADERS += \
     scene.h \
@@ -138,7 +141,14 @@ HEADERS += \
     checkpointlistener.h \
     objectloader.h \
     utils.h \
-    gamewidget.h
+    gamewidget.h \
+    menu.h \
+    formtools.h \
+    mainwindow.h
 
 FORMS += \
-    gamewindow.ui
+    gamewindow.ui \
+    formtools.ui \
+    mainwindow.ui \
+    menu.ui \
+    tools.ui

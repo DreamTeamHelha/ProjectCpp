@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Menu</class>
+ <widget class="QWidget" name="Menu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>0</y>
+     <width>211</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <property name="midLineWidth">
+    <number>-1</number>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
+   <property name="pixmap">
+    <pixmap>SirtoliRacing/data/img/SIRTOLI_LOGOMenu.jpg</pixmap>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="b_Race">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>290</y>
+     <width>400</width>
+     <height>265</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>SirtoliRacing/data/img/RaceMenu.png</normaloff>SirtoliRacing/data/img/RaceMenu.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>400</width>
+     <height>265</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="b_Settings">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>290</y>
+     <width>275</width>
+     <height>183</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>SirtoliRacing/data/img/tools.jpg</normaloff>SirtoliRacing/data/img/tools.jpg</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>275</width>
+     <height>183</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="b_Exit">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>480</y>
+     <width>281</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>SirtoliRacing/data/img/formulaExit.jpg</normaloff>SirtoliRacing/data/img/formulaExit.jpg</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>281</width>
+     <height>101</height>
+    </size>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -17,7 +17,7 @@ public:
     /// La scène doit être chargée avant l'appel de ce constructeur,
     /// et sera détruite avec le GameWidget.
     ///
-    GameWidget(Scene *scene);
+    GameWidget(Scene *scene, QWidget *parent=nullptr);
     ~GameWidget();
 
     ///

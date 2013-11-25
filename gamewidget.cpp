@@ -3,7 +3,8 @@
 #include <QMessageBox>
 #include <QKeyEvent>
 
-GameWidget::GameWidget(Scene *scene) :
+GameWidget::GameWidget(Scene *scene, QWidget *parent) :
+    QGraphicsView(parent),
     m_scene(scene)
 {
     if (!scene)
