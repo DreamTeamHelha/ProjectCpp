@@ -1,6 +1,7 @@
 #include "formtools.h"
 #include "ui_formtools.h"
 #include "menu.h"
+
 FormTools::FormTools(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FormTools)

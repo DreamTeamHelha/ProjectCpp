@@ -2,11 +2,12 @@
 #include <SFML/System/Time.hpp>
 #include <QMessageBox>
 #include <QKeyEvent>
+#include"formtimer.h"
 
 GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     QGraphicsView(parent),
-    m_timeLabel("Test"),
-    m_scene(scene)
+    m_scene(scene),
+    m_timeLabel("Test")
 {
     if (!scene)
     {
@@ -18,9 +19,14 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     }
     else
     {
+/*
         m_timeLabel.show();
         m_timeLabel.setGeometry(0,0,100,100);
         // prépare la scène pour l'affichage
+*/
+        FormTimer *tools=new FormTimer(this->parentWidget());
+
+        tools->show();
         this->setScene(scene->graphicsScene());
         this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -34,9 +40,6 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
 
         //Démarrage du timer de temps
         scene->start();
-
-
-
     }
 }
 
@@ -77,15 +80,25 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
         m_playerInput.setTurnRight(true);
         break;
 <<<<<<< HEAD
-    case Qt::Key_Escape:
-        system("PAUSE");
+<<<<<<< HEAD
+
+
 =======
+>>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
+=======
+>>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
 
     case Qt::Key_Escape:
         m_playerInput.setPause(true);
         break;
 
->>>>>>> 3f7c1e9cdbdb854374365aeb9858b516e619758e
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+>>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
+=======
+>>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
     default:
          QGraphicsView::keyPressEvent(event);
     }
@@ -131,8 +144,15 @@ void GameWidget::timerEvent(QTimerEvent *)
         }
         else
         {
+            /// mise à jour de la scène
             m_scene->update();
-            centerOn(m_scene->calcViewPoint());
+
+            /// mise à jour de la caméra
+            View view = m_scene->calcViewPoint();
+            centerOn(view.position());
+            scale(view.zoom(), view.zoom());
+
+            /// mise à jour du compteur
             QString timeString;
             timeString.number(m_scene->time().elapsed()/1000);
             m_timeLabel.setText(timeString);

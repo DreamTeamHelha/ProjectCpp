@@ -74,7 +74,16 @@ SOURCES += \
     menu.cpp \
     formtools.cpp \
     mainwindow.cpp \
-    menuingame.cpp
+    menuingame.cpp \
+<<<<<<< HEAD
+<<<<<<< HEAD
+    formtimer.cpp
+=======
+    view.cpp
+>>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
+=======
+    view.cpp
+>>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
 
 HEADERS += \
     scene.h \
@@ -147,7 +156,16 @@ HEADERS += \
     menu.h \
     formtools.h \
     mainwindow.h \
-    menuingame.h
+    menuingame.h \
+<<<<<<< HEAD
+<<<<<<< HEAD
+    formtimer.h
+=======
+    view.h
+>>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
+=======
+    view.h
+>>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
 
 FORMS += \
     gamewindow.ui \
@@ -155,4 +173,5 @@ FORMS += \
     mainwindow.ui \
     menu.ui \
     tools.ui \
-    menuingame.ui
+    menuingame.ui \
+    formtimer.ui

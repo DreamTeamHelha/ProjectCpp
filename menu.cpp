@@ -23,8 +23,12 @@ Menu::Menu(QWidget *parent) :
     ui->b_Settings->setIcon((QIcon)(QCoreApplication::applicationDirPath() + "/data/img/tools.jpg"));
     ui->b_Exit->setIcon((QIcon)(QCoreApplication::applicationDirPath() + "/data/img/FormulaExit.jpg"));
     ui->label->setPixmap(QCoreApplication::applicationDirPath() + "/data/img/SIRTOLI_LOGOMenu.jpg");
-    m_soundMenu= new QSound(QCoreApplication::applicationDirPath() + "/data/sons/1.wav");
+     m_soundMenu= new QSound(QCoreApplication::applicationDirPath() + "/data/sons/1.wav");
     m_soundMenu->play();
+
+
+
+
 }
 
 Menu::~Menu()
