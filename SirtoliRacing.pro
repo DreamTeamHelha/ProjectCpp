@@ -75,7 +75,6 @@ SOURCES += \
     formtools.cpp \
     mainwindow.cpp \
     menuingame.cpp \
-    formtimer.cpp \
     view.cpp
 
 HEADERS += \
@@ -150,7 +149,6 @@ HEADERS += \
     formtools.h \
     mainwindow.h \
     menuingame.h \
-    formtimer.h \
     view.h
 
 FORMS += \
@@ -159,5 +157,4 @@ FORMS += \
     mainwindow.ui \
     menu.ui \
     tools.ui \
-    menuingame.ui \
-    formtimer.ui
+    menuingame.ui

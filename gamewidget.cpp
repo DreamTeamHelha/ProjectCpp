@@ -2,7 +2,7 @@
 #include <SFML/System/Time.hpp>
 #include <QMessageBox>
 #include <QKeyEvent>
-#include"formtimer.h"
+
 
 GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     QGraphicsView(parent),
@@ -24,9 +24,7 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
         m_timeLabel.setGeometry(0,0,100,100);
         // prépare la scène pour l'affichage
         */
-        FormTimer *tools=new FormTimer(this->parentWidget());
 
-        tools->show();
         this->setScene(scene->graphicsScene());
         this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
