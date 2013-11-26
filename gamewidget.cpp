@@ -19,11 +19,11 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     }
     else
     {
-/*
+        /*
         m_timeLabel.show();
         m_timeLabel.setGeometry(0,0,100,100);
         // prépare la scène pour l'affichage
-*/
+        */
         FormTimer *tools=new FormTimer(this->parentWidget());
 
         tools->show();
@@ -79,32 +79,11 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
         m_playerInput.setTurnRight(true);
         break;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
-=======
->>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
-=======
->>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
 
     case Qt::Key_Escape:
         m_playerInput.setPause(true);
         break;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
-=======
->>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
-=======
->>>>>>> 2c3c160b564e31809471213bb9dd8d01f205b729
     default:
          QGraphicsView::keyPressEvent(event);
     }

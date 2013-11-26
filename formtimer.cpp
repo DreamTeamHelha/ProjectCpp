@@ -1,8 +1,8 @@
 #include "formtimer.h"
 #include "ui_formtimer.h"
-
 #include <QTimer>
 #include<iostream>
+
 using namespace std;
 
 FormTimer::FormTimer(QWidget *parent) :
@@ -26,7 +26,6 @@ FormTimer::~FormTimer()
 {
     delete ui;
     delete m_timer;
-    delete m_timer_Min_value;
 }
 
 void FormTimer::update()
