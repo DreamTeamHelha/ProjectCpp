@@ -22,15 +22,6 @@ Scene::Scene() :
 {
     //Ajout du listener de contact
     m_physicsWorld->SetContactListener(m_checkpointListener);
-
-
-    /*
-     *
-     *ATTENTION
-     *A modifier dès que possible !!!!  On ne peut laisser cela en dur dans le code !!!
-     *
-     */
-    m_checkpointListener->setCheckpointNumber(1);
 }
 
 Scene::~Scene()
@@ -83,6 +74,7 @@ bool Scene::load(const QString &levelName, const QString &carClassName)
     {
         return false;
     }
+    m_checkpointListener->setCheckpointNumber(objectLoader.checkpointCount());
     std::cout << "Fin du chargement" << std::endl;
     m_loaded=true;
     return true;

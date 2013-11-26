@@ -29,8 +29,14 @@ public:
     ///
     bool load(const QString& filename);
 
+    ///
+    /// Nombre de checkpoints créés par le loader
+    ///
+    int checkpointCount() const;
+
 private:
 
     Scene  *m_scene;
     QString m_carClassName;
+    int     m_checkpointCount;
 };

@@ -8,12 +8,14 @@
 #include <QJsonObject>
 #include <QFile>
 #include <QJsonArray>
+#include "checkpoint.h"
 
 using namespace::std;
 
 ObjectLoader::ObjectLoader(Scene *scene, const QString &carClassName) :
     m_scene(scene),
-    m_carClassName(carClassName)
+    m_carClassName(carClassName),
+    m_checkpointCount(0)
 {
 }
 
@@ -85,10 +87,19 @@ bool ObjectLoader::load(const QString& filename)
                 Object *obj=objectFactory->create();
                 if(obj)
                 {
-                   m_scene->addObject(obj);
+                    m_scene->addObject(obj);
+
+                    // compte les checkpoints
+                    if (dynamic_cast<Checkpoint*>(obj))
+                        m_checkpointCount++;
                 }
             }
          }
     }
     return true;
+}
+
+int ObjectLoader::checkpointCount() const
+{
+    return m_checkpointCount;
 }
