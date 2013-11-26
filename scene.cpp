@@ -174,6 +174,11 @@ bool Scene::loadMap()
     {
         return false;
     }
+    QPixmap *mudTile = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tiles/MudTile.png");
+    if (mudTile->isNull())
+    {
+        return false;
+    }
 
     // remplissage de la scène graphique avec les tuiles
     for(int x=0;x<m_tilemap->width();x++)
@@ -184,6 +189,8 @@ bool Scene::loadMap()
             switch(m_tilemap->tile(y,x))
             {
             case GroundType::Asphalt :  item = new QGraphicsPixmapItem(*roadTile);
+                      break;
+            case GroundType::Mud :      item = new QGraphicsPixmapItem( *mudTile);
                       break;
             default : item = new QGraphicsPixmapItem(*grassTile);
             }

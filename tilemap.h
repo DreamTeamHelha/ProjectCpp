@@ -9,7 +9,7 @@ enum class GroundType
 {
     Grass,
     Asphalt,
-    Dirt,
+    Mud,
 
     _count // nombre de types de sol disponible
 };

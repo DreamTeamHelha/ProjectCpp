@@ -30,6 +30,8 @@ Tilemap* TilemapLoader::load(QString path)
             {
             case ASPHALT: tilemap->setTile(heightCount,widthCount,GroundType::Asphalt);
                           break;
+            case MUD:     tilemap->setTile(heightCount,widthCount,GroundType::Mud);
+                          break;
             default :     tilemap->setTile(heightCount,widthCount,GroundType::Grass);
 
             }
