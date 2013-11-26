@@ -1,8 +1,8 @@
 ﻿[
 	{
 		"class":"PlayerStart",
-		"x":2000,
-		"y":2000,
+		"x":1472,
+		"y":512,
 		"rot":0
 	},
 	{
@@ -22,7 +22,370 @@
 		"x":2500,
 		"y":2000,
 		"rot":0
+	},
+	{	
+		"class":"Checkpoint",
+		"x":2048,
+		"y":512,
+		"rot":0
+	},
+	{	
+		"class":"Checkpoint",
+		"x":2720,
+		"y":448,
+		"rot":0
+	},
+	{	
+		"class":"Checkpoint",
+		"x":3520,
+		"y":704,
+		"rot":0
+	},
+	{
+
+		"class":"Checkpoint",
+		"x":3728,
+		"y":1584,
+		"rot":0
+	},
+
+		{
+
+		"class":"Checkpoint",
+		"x":3728,
+		"y":1904,
+		"rot":0
+	},
+	{
+
+		"class":"Checkpoint",
+		"x":3728,
+		"y":2320,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":3728,
+		"y":2736,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":3728,
+		"y":3216,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":3344,
+		"y":3920,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2864,
+		"y":3920,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2256,
+		"y":3920,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1936,
+		"y":3920,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1392,
+		"y":3760,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":944,
+		"y":3440,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":720,
+		"y":3184,
+		"rot":0
+	},
+	{
+
+		"class":"Checkpoint",
+		"x":720,
+		"y":3184,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":720,
+		"y":2864,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1136,
+		"y":2704,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1488,
+		"y":2704,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1744,
+		"y":3024,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2000,
+		"y":3280,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2352,
+		"y":3280,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2800,
+		"y":3280,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":3152,
+		"y":2960,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":3152,
+		"y":2320,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2800,
+		"y":1680,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2480,
+		"y":1328,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2064,
+		"y":1072,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1424,
+		"y":1296,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1424,
+		"y":1744,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1776,
+		"y":1904,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2320,
+		"y":2000,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2800,
+		"y":2288,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2832,
+		"y":2896,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":2256,
+		"y":2864,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1808,
+		"y":2608,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1424,
+		"y":2352,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":1040,
+		"y":1936,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":656,
+		"y":1584,
+		"rot":0
+	},
+	{
+
+		"class":"Checkpoint",
+		"x":400,
+		"y":1424,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":208,
+		"y":1328,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":144,
+		"y":1072,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":208,
+		"y":656,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":592,
+		"y":464,
+		"rot":0
+	},
+
+	{
+
+		"class":"Checkpoint",
+		"x":912,
+		"y":464,
+		"rot":0
 	}
+
+
+
+
+
+
+					
+					
+			
+			
+			
+	
+	
 
 ]
 	 
