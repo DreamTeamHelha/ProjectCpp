@@ -4,7 +4,7 @@
 #include <scene.h>
 #include <playerinput.h>
 #include <QString>
-#include <QPushButton>
+#include <QLabel>
 
 ///
 /// Widget servant à l'affichage et à la gestion d'un niveau.
@@ -44,5 +44,5 @@ private:
     QString      m_levelName;
     Scene       *m_scene;
     PlayerInput  m_playerInput;
-    QPushButton  m_timeLabel;
+    QLabel  m_timeLabel;
 };

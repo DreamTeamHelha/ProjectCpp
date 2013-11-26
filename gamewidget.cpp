@@ -2,12 +2,12 @@
 #include <SFML/System/Time.hpp>
 #include <QMessageBox>
 #include <QKeyEvent>
-
+#include "utils.h"
 
 GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     QGraphicsView(parent),
     m_scene(scene),
-    m_timeLabel("Test")
+    m_timeLabel(this)
 {
     if (!scene)
     {
@@ -19,11 +19,10 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     }
     else
     {
-        /*
-        m_timeLabel.show();
-        m_timeLabel.setGeometry(0,0,100,100);
+        m_timeLabel.setGeometry(0,0,500,50);
+        m_timeLabel.setStyleSheet("color: rgb(255, 47, 28);font: 24pt \"MS Shell Dlg 2\";");
         // prépare la scène pour l'affichage
-        */
+
 
         this->setScene(scene->graphicsScene());
         this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -136,8 +135,7 @@ void GameWidget::timerEvent(QTimerEvent *)
             scale(view.zoom(), view.zoom());
 
             /// mise à jour du compteur
-            QString timeString;
-            timeString.number(m_scene->time().elapsed()/1000);
+            QString timeString =utils::showableTime(m_scene->time().elapsed());
             m_timeLabel.setText(timeString);
         }
     }
