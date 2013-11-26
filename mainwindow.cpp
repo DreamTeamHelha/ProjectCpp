@@ -78,10 +78,7 @@ void MainWindow::startGame(const QString &levelName, const QString &carClassName
         }
 
         m_gameWidget = new GameWidget(scene, this);
-        QRect geom = this->geometry();
-        geom.setX(0);
-        geom.setY(0);
-        m_gameWidget->setGeometry(geom);
+        m_gameWidget->setGeometry(0,0,800,600);
         m_gameWidget->show();
     }
     else
