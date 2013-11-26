@@ -28,6 +28,7 @@ void MainWindow::showPanel(const QString &menuName)
 {
     if (m_panel)
     {
+        m_panel->close();
         m_panel->deleteLater();
         m_panel = nullptr;
     }

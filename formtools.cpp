@@ -1,6 +1,7 @@
 #include "formtools.h"
 #include "ui_formtools.h"
 #include "menu.h"
+#include <iostream>
 
 FormTools::FormTools(QWidget *parent) :
     Panel(parent),
@@ -13,13 +14,11 @@ FormTools::FormTools(QWidget *parent) :
 
 FormTools::~FormTools()
 {
+    std::cout << "FormTools deleted" << std::endl;
     delete ui;
 }
 
 void FormTools::afficherMenu()
 {
-    this->close();
-    Menu *menu=new Menu(this->parentWidget());
-
-    menu->show();
+    emit showPanel("Menu");
 }

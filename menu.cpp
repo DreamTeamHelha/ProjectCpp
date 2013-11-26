@@ -1,11 +1,11 @@
 #include "menu.h"
 #include "ui_menu.h"
 
-#include"formtools.h"
-#include"gamewidget.h"
-#include<QMessageBox>
-#include<QFile>
-#include<iostream>
+#include "formtools.h"
+#include "gamewidget.h"
+#include <QMessageBox>
+#include <QFile>
+#include <iostream>
 #include <QCoreApplication>
 #include <QSound>
 
@@ -32,6 +32,7 @@ Menu::Menu(QWidget *parent) :
 
 Menu::~Menu()
 {
+    std::cout << "Menu deleted" << std::endl;
     delete ui;
     //detruit le son si il est pas nul , comme sa on peut le detruire en cliquant sur play
     if (m_soundMenu)
@@ -40,10 +41,7 @@ Menu::~Menu()
 
 void Menu::afficherTools()
 {
-    this->close();
-
-    FormTools *tools=new FormTools(this->parentWidget());
-    tools->show();
+    emit showPanel("Tools");
 }
 
 void Menu::exitApp()
