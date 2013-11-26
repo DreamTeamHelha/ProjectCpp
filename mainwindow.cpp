@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     afficherMenu();
 }
 
@@ -13,12 +14,19 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 void MainWindow::afficherMenu()
 {
     Menu *menu= new Menu(this);
     menu->show();
 }
-void MainWindow::resizeEvent(QResizeEvent *event)
+
+void MainWindow::showMenu(const QString &menuName)
 {
-    QMainWindow::resizeEvent(event);
+
+}
+
+void MainWindow::startGame(const QString &levelName, const QString &carClassName)
+{
+
 }
