@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include <QString>
+#include "panel.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +22,11 @@ public:
     ~MainWindow();
     void afficherMenu();
 
+    ///
+    /// Panel actuellement affiché dans la fenêtre
+    ///
+    Panel *panel() const;
+
 public slots:
 
     ///
@@ -36,5 +42,7 @@ public slots:
 private:
 
     Ui::MainWindow *ui;
+
+    Panel *m_panel;
 };
 

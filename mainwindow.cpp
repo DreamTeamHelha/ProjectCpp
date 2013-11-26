@@ -3,7 +3,8 @@
 #include "menu.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_panel(nullptr)
 {
     ui->setupUi(this);
 
