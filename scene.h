@@ -61,7 +61,7 @@ public:
     ///
     ///Permet la récupération de la tilemap
     ///
-    const Tilemap *tilemap() const;
+    Tilemap *tilemap() const;
 
     ///
     /// Calcule le point de vue de la caméra

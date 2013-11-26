@@ -74,6 +74,7 @@ bool Scene::load(const QString &levelName, const QString &carClassName)
     {
         return false;
     }
+
     m_checkpointListener->setCheckpointNumber(objectLoader.checkpointCount());
     std::cout << "Fin du chargement" << std::endl;
     m_loaded=true;
@@ -129,7 +130,7 @@ void Scene::setPlayerInput(const PlayerInput *playerInput)
     m_playerInput = playerInput;
 }
 
-const Tilemap *Scene::tilemap() const
+Tilemap *Scene::tilemap() const
 {
     return m_tilemap;
 }

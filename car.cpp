@@ -11,8 +11,19 @@
 #include <QMessageBox>
 
 Car::Car(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
-    Object(graphicsItem, physicsBody)
+    Object(graphicsItem, physicsBody),
+    m_tilemap(nullptr)
 {
+}
+
+Tilemap* Car::tilemap() const
+{
+    return m_tilemap;
+}
+
+void Car::setTilemap(Tilemap *tilemap)
+{
+    m_tilemap = tilemap;
 }
 
 void Car::step(qreal throttle, qreal brakes, qreal steering)
@@ -22,6 +33,15 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
 
     if (physicsBody())
     {
+        // -- test --
+        if (m_tilemap)
+        {
+            Vector tilepos = physicsBody()->GetPosition();
+            tilepos.setX( (int)(tilepos.x() / m_tilemap->tileSize()) );
+            tilepos.setY( (int)(tilepos.y() / m_tilemap->tileSize()) );
+            std::cout << "tuile(" << tilepos.x() << ";" << tilepos.y() << ") -> " << (int)m_tilemap->tile(tilepos.y(), tilepos.x()) << std::endl;
+        }
+
         // direction
         if (steering != 0)
         {
@@ -109,6 +129,7 @@ Object *CarFactory::create() const
 
     // création de la box et la retourne
     Car *car = new Car(graphics, body);
+    car->setTilemap(scene()->tilemap());
     fixture->SetUserData((void *)car);
     return car;
 }
