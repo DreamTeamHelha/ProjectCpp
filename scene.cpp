@@ -179,7 +179,7 @@ bool Scene::loadMap()
         for(int y=0;y<m_tilemap->height();y++)
         {
             QGraphicsPixmapItem *item;
-            switch(m_tilemap->tile(y,x))
+            switch(m_tilemap->tile(x,y))
             {
             case GroundType::Asphalt :  item = new QGraphicsPixmapItem(*roadTile);
                       break;

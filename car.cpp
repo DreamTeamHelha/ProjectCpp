@@ -39,7 +39,7 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
             Vector tilepos = physicsBody()->GetPosition();
             tilepos.setX( (int)(tilepos.x() / m_tilemap->tileSize()) );
             tilepos.setY( (int)(tilepos.y() / m_tilemap->tileSize()) );
-            std::cout << "tuile(" << tilepos.x() << ";" << tilepos.y() << ") -> " << (int)m_tilemap->tile(tilepos.y(), tilepos.x()) << std::endl;
+            std::cout << "tuile(" << tilepos.x() << ";" << tilepos.y() << ") -> " << (int)m_tilemap->tile(tilepos.x(), tilepos.y()) << std::endl;
         }
 
         // direction

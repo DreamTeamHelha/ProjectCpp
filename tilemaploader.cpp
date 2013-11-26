@@ -21,18 +21,18 @@ Tilemap* TilemapLoader::load(QString path)
 
     tilemap->setHeight(image->height());
     tilemap->setWidth(image->width());
-    for(int widthCount = 0;widthCount<image->width();widthCount++)
+    for(int heightCount = 0;heightCount<image->height(); heightCount++)
     {
-        for(int heightCount = 0;heightCount<image->height(); heightCount++)
+        for(int widthCount = 0;widthCount<image->width();widthCount++)
         {
             QRgb color = image->pixel(widthCount,heightCount);
             switch(color)
             {
-            case ASPHALT: tilemap->setTile(heightCount,widthCount,GroundType::Asphalt);
+            case ASPHALT: tilemap->setTile(widthCount,heightCount,GroundType::Asphalt);
                           break;
-            case MUD:     tilemap->setTile(heightCount,widthCount,GroundType::Mud);
+            case MUD:     tilemap->setTile(widthCount,heightCount,GroundType::Mud);
                           break;
-            default :     tilemap->setTile(heightCount,widthCount,GroundType::Grass);
+            default :     tilemap->setTile(widthCount,heightCount,GroundType::Grass);
 
             }
 
