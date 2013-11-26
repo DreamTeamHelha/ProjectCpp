@@ -2,11 +2,13 @@
 #include "ui_mainwindow.h"
 #include "menu.h"
 #include "formtools.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_panel(nullptr)
+    m_panel(nullptr),
+    m_gameWidget(nullptr)
 {
     ui->setupUi(this);
 
@@ -18,14 +20,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::afficherMenu()
+Panel *MainWindow::panel() const
 {
-    Menu *menu= new Menu(this);
-    menu->show();
+    return m_panel;
+}
+
+GameWidget *MainWindow::gameWidget() const
+{
+    return m_gameWidget;
 }
 
 void MainWindow::showPanel(const QString &menuName)
 {
+    // nettoyage
     if (m_panel)
     {
         m_panel->close();
@@ -54,5 +61,33 @@ void MainWindow::showPanel(const QString &menuName)
 
 void MainWindow::startGame(const QString &levelName, const QString &carClassName)
 {
+    Scene *scene = new Scene;
+    if (scene->load(levelName, carClassName))
+    {
+        // changement de niveau
+        if (m_panel)
+        {
+            m_panel->close();
+            m_panel->deleteLater();
+            m_panel = nullptr;
+        }
+        if (m_gameWidget)
+        {
+            m_gameWidget->close();
+            m_gameWidget->deleteLater();
+        }
 
+        m_gameWidget = new GameWidget(scene, this);
+        QRect geom = this->geometry();
+        geom.setX(0);
+        geom.setY(0);
+        m_gameWidget->setGeometry(geom);
+        m_gameWidget->show();
+    }
+    else
+    {
+        // reste où il est
+        delete scene;
+        QMessageBox::information(this, "Erreur", "Le chargement du niveau '" + levelName + "' avec le véhicule '" + carClassName + "' a échoué!", 0);
+    }
 }

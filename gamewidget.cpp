@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QKeyEvent>
 #include "utils.h"
+#include <iostream>
 
 GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     QGraphicsView(parent),
@@ -42,6 +43,7 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
 
 GameWidget::~GameWidget()
 {
+    std::cout << "GameWidget deleted" << std::endl;
     if (m_scene)
         delete m_scene;
 }

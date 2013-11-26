@@ -54,23 +54,5 @@ void Menu::AfficherJeu()
     delete m_soundMenu;
     m_soundMenu = nullptr;
 
-    this->close();
-
-    GameWidget *gameWidget(nullptr);
-    Scene *scene = new Scene();
-
-    // chargement de la map
-    if (scene->load("Raph_Paradise", "Car"))
-    {
-        // -- test -- paramétrage de la scène
-        gameWidget = new GameWidget(scene, this->parentWidget());
-        gameWidget->setGeometry(0,0,this->parentWidget()->width(),this->parentWidget()->height());
-    }
-    else
-    {
-        QMessageBox::information(nullptr, "Erreur", "Le chargement de la map à échoué", 0);
-        gameWidget = new GameWidget(nullptr);
-    }
-
-    gameWidget->show();
+    emit startGame("Raph_Paradise", "Car");
 }

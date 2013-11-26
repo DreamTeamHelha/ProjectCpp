@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <QString>
 #include "panel.h"
+#include "gamewidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,12 +21,12 @@ public:
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void afficherMenu();
 
     ///
-    /// Panel actuellement affiché dans la fenêtre
+    /// Getters
     ///
-    Panel *panel() const;
+    Panel      *panel() const;
+    GameWidget *gameWidget() const;
 
 public slots:
 
@@ -43,6 +44,7 @@ private:
 
     Ui::MainWindow *ui;
 
-    Panel *m_panel;
+    Panel      *m_panel;
+    GameWidget *m_gameWidget;
 };
 
