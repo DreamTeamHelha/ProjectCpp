@@ -160,5 +160,4 @@ FORMS += \
     formtools.ui \
     mainwindow.ui \
     menu.ui \
-    tools.ui \
     menuingame.ui

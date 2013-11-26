@@ -3,18 +3,19 @@
 #include "menu.h"
 
 FormTools::FormTools(QWidget *parent) :
-    QWidget(parent),
+    Panel(parent),
     ui(new Ui::FormTools)
 {
     ui->setupUi(this);
-    QObject::connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(afficherMenu()));
 
+    connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(afficherMenu()));
 }
 
 FormTools::~FormTools()
 {
     delete ui;
 }
+
 void FormTools::afficherMenu()
 {
     this->close();
