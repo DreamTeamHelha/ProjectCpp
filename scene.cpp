@@ -22,6 +22,14 @@ Scene::Scene() :
 {
     //Ajout du listener de contact
     m_physicsWorld->SetContactListener(m_checkpointListener);
+
+
+    /*
+     *
+     *ATTENTION
+     *A modifier dès que possible !!!!  On ne peut laisser cela en dur dans le code !!!
+     *
+     */
     m_checkpointListener->setCheckpointNumber(1);
 }
 
