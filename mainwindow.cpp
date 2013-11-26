@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "menu.h"
+#include "formtools.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    afficherMenu();
+    showPanel("Menu");
 }
 
 MainWindow::~MainWindow()
@@ -25,7 +26,29 @@ void MainWindow::afficherMenu()
 
 void MainWindow::showPanel(const QString &menuName)
 {
+    if (m_panel)
+    {
+        m_panel->deleteLater();
+        m_panel = nullptr;
+    }
 
+    // crée le panel correspondant
+    if (menuName == "Menu")
+    {
+        m_panel = new Menu(this);
+    }
+    else if (menuName == "Tools")
+    {
+        m_panel = new FormTools(this);
+    }
+
+    // crée les connexions
+    if (m_panel)
+    {
+        connect(m_panel, SIGNAL(showPanel(QString)), this, SLOT(showPanel(QString)));
+        connect(m_panel, SIGNAL(startGame(QString,QString)), this, SLOT(startGame(QString,QString)));
+        m_panel->show();
+    }
 }
 
 void MainWindow::startGame(const QString &levelName, const QString &carClassName)
