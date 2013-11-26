@@ -26,7 +26,7 @@ public slots:
     ///
     /// Provoque le changement de menu
     ///
-    void showMenu(const QString& menuName);
+    void showPanel(const QString& menuName);
 
     ///
     /// Provoque le lancement du jeu.

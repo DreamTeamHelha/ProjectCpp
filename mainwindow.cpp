@@ -21,7 +21,7 @@ void MainWindow::afficherMenu()
     menu->show();
 }
 
-void MainWindow::showMenu(const QString &menuName)
+void MainWindow::showPanel(const QString &menuName)
 {
 
 }
