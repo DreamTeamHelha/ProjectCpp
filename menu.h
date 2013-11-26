@@ -1,28 +1,29 @@
-#ifndef MENU_H
-#define MENU_H
+#pragma once
 
-#include <QWidget>
-#include<QSound>
+#include "panel.h"
+#include <QSound>
+
 namespace Ui {
 class Menu;
 }
 
-class Menu : public QWidget
+class Menu : public Panel
 {
     Q_OBJECT
-private:
-    QSound *m_soundMenu;
-public:
-    explicit Menu(QWidget *parent = 0);
 
+public:
+
+    explicit Menu(QWidget *parent = 0);
     ~Menu();
-signals:
+
 private slots:
+
     void afficherTools();
     void exitApp();
     void AfficherJeu();
-private:
-    Ui::Menu *ui;
-};
 
-#endif // MENU_H
+private:
+
+    Ui::Menu *ui;
+    QSound   *m_soundMenu;
+};
