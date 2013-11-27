@@ -44,3 +44,8 @@ bool CheckpointListener::hasCheckpointRemaining()
 {
     return m_checkpointRemaining >0;
 }
+
+const int CheckpointListener::checkpointRemaining()const
+{
+    return m_checkpointRemaining;
+}

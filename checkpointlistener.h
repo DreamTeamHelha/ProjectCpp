@@ -11,5 +11,6 @@ public:
     void BeginContact (b2Contact *contact);
     void setCheckpointNumber(int number);
     bool hasCheckpointRemaining();
+    const int  checkpointRemaining() const;
 };
 

@@ -88,6 +88,11 @@ public:
     ///
     const QTime & time()const;
 
+    ///
+    ///
+    ///
+    const CheckpointListener * checkpointListener() const;
+
 
 private:
 

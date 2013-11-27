@@ -254,3 +254,8 @@ const QTime & Scene::time()const
     return m_time;
 }
 
+const CheckpointListener * Scene::checkpointListener()const
+{
+    return m_checkpointListener;
+}
+
