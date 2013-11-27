@@ -29,7 +29,9 @@ void Car::setTilemap(Tilemap *tilemap)
 void Car::step(qreal throttle, qreal brakes, qreal steering)
 {
     float maxTorque = 25000000;   // prochainement propriété de la voiture
-    float maxLateralFriction = 5; // ''
+    float maxLateralFriction = 10; // ''
+    float accelRate = 1000000;
+    float brakeRate = 500000;
 
     if (physicsBody())
     {
@@ -39,7 +41,20 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
             Vector tilepos = physicsBody()->GetPosition();
             tilepos.setX( (int)(tilepos.x() / m_tilemap->tileSize()) );
             tilepos.setY( (int)(tilepos.y() / m_tilemap->tileSize()) );
-            std::cout << "tuile(" << tilepos.x() << ";" << tilepos.y() << ") -> " << (int)m_tilemap->tile(tilepos.x(), tilepos.y()) << std::endl;
+            switch ( m_tilemap->tile(tilepos.x(), tilepos.y()) )
+            {
+            case GroundType::Mud:
+                maxLateralFriction /= 3;
+                accelRate /= 3;
+                brakeRate /= 3;
+                break;
+
+            case GroundType::Grass:
+                maxLateralFriction /= 4;
+                accelRate /= 4;
+                brakeRate /= 4;
+                break;
+            }
         }
 
         // direction
@@ -61,9 +76,9 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
         float accel = 0;
 
         if (throttle > 0)
-            accel += 1000000;
+            accel += accelRate;
         if (brakes > 0)
-           accel -= 500000;
+           accel -= brakeRate;
 
         Vector vAccel = (Vector)(Rotation::radians(physicsBody()->GetAngle()));
         vAccel *= accel;
