@@ -36,18 +36,18 @@ Object* CheckpointFactory::create() const
     bodyDef.angle = rotation().radians();
     bodyDef.type = b2_kinematicBody;
     b2Body *body = scene()->physicsWorld()->CreateBody(&bodyDef);
+
     // - création de la forme
     b2CircleShape shape;
     shape.m_radius = 80;
     b2Fixture *fixture = body->CreateFixture(&shape, 1);
     fixture->SetSensor(true);
 
-
-
-
     // création du checkpoint et le retourne
     Checkpoint *checkpoint = new Checkpoint(graphics, body);
 
+    //Ajout de données permettant durant la course de vérifier si, lors d'un contact entre deux objets,
+    //l'un de ces objets est un Checkpoint.
     fixture->SetUserData((void*)checkpoint);
 
     return checkpoint;

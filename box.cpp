@@ -45,6 +45,5 @@ Object* BoxFactory::create() const
     body->CreateFixture(&shape, 1);
 
     // création de la box et la retourne
-    Box *box = new Box(graphics, body);
-    return box;
+    return new Box(graphics, body);
 }
