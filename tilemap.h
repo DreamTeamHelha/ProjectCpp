@@ -5,7 +5,7 @@
 ///
 /// Énumération des différents types de sols du jeu
 ///
-enum class GroundType
+enum GroundType
 {
     Grass,
     Asphalt,

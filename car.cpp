@@ -12,7 +12,11 @@
 
 Car::Car(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
     Object(graphicsItem, physicsBody),
-    m_tilemap(nullptr)
+    m_tilemap(nullptr),
+    m_accelRate({0}),
+    m_brakeRate({0}),
+    m_maxTorque({0}),
+    m_maxLateralFriction({0})
 {
 }
 
@@ -41,20 +45,12 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
             Vector tilepos = physicsBody()->GetPosition();
             tilepos.setX( (int)(tilepos.x() / m_tilemap->tileSize()) );
             tilepos.setY( (int)(tilepos.y() / m_tilemap->tileSize()) );
-            switch ( m_tilemap->tile(tilepos.x(), tilepos.y()) )
-            {
-            case GroundType::Mud:
-                maxLateralFriction /= 3;
-                accelRate /= 3;
-                brakeRate /= 3;
-                break;
+            GroundType ground = m_tilemap->tile(tilepos.x(), tilepos.y());
 
-            case GroundType::Grass:
-                maxLateralFriction /= 4;
-                accelRate /= 4;
-                brakeRate /= 4;
-                break;
-            }
+            accelRate = m_accelRate[ground];
+            brakeRate = m_brakeRate[ground];
+            maxTorque = m_maxTorque[ground];
+            maxLateralFriction = m_maxLateralFriction[ground];
         }
 
         // direction
@@ -106,6 +102,75 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
     }
 }
 
+float Car::accelRate(GroundType groundType) const
+{
+    if (groundType >= 0 && groundType < GroundType::_count)
+    {
+        return m_accelRate[groundType];
+    }
+    return 0;
+}
+
+float Car::brakeRate(GroundType groundType) const
+{
+    if (groundType >= 0 && groundType < GroundType::_count)
+    {
+        return m_brakeRate[groundType];
+    }
+    return 0;
+}
+
+float Car::maxTorque(GroundType groundType) const
+{
+    if (groundType >= 0 && groundType < GroundType::_count)
+    {
+        return m_maxTorque[groundType];
+    }
+    return 0;
+}
+
+float Car::maxLateralFriction(GroundType groundType) const
+{
+    if (groundType >= 0 && groundType < GroundType::_count)
+    {
+        return m_maxLateralFriction[groundType];
+    }
+    return 0;
+}
+
+void Car::setAccelRate(GroundType groundType, float value)
+{
+    if (groundType >= 0 && groundType < GroundType::_count)
+    {
+        m_accelRate[groundType] = value;
+    }
+}
+
+void Car::setBrakeRate(GroundType groundType, float value)
+{
+    if (groundType >= 0 && groundType < GroundType::_count)
+    {
+        m_brakeRate[groundType] = value;
+    }
+}
+
+void Car::setMaxTorque(GroundType groundType, float value)
+{
+    if (groundType >= 0 && groundType < GroundType::_count)
+    {
+        m_maxTorque[groundType] = value;
+    }
+}
+
+void Car::setMaxLateralFriction(GroundType groundType, float value)
+{
+    if (groundType >= 0 && groundType < GroundType::_count)
+    {
+        m_maxLateralFriction[groundType] = value;
+    }
+}
+
+
 Object *CarFactory::create() const
 {
     using utils::toRadians;
@@ -140,11 +205,28 @@ Object *CarFactory::create() const
     shape.SetAsBox(33, 17);
     b2Fixture *fixture =  body->CreateFixture(&shape, 100);
 
-
-
-    // création de la box et la retourne
+    // création de la voiture
     Car *car = new Car(graphics, body);
-    car->setTilemap(scene()->tilemap());
     fixture->SetUserData((void *)car);
+
+    // paramétrage
+    car->setTilemap(scene()->tilemap());
+
+    car->setAccelRate(GroundType::Asphalt, 1200000);
+    car->setAccelRate(GroundType::Grass, 600000);
+    car->setAccelRate(GroundType::Mud, 1100000);
+
+    car->setBrakeRate(GroundType::Asphalt, 500000);
+    car->setBrakeRate(GroundType::Grass, 300000);
+    car->setBrakeRate(GroundType::Mud, 400000);
+
+    car->setMaxTorque(GroundType::Asphalt, 20000000);
+    car->setMaxTorque(GroundType::Grass, 40000000);
+    car->setMaxTorque(GroundType::Mud, 30000000);
+
+    car->setMaxLateralFriction(GroundType::Asphalt, 6);
+    car->setMaxLateralFriction(GroundType::Grass, 2);
+    car->setMaxLateralFriction(GroundType::Mud, 3);
+
     return car;
 }
