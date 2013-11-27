@@ -8,7 +8,8 @@
 GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     QGraphicsView(parent),
     m_scene(scene),
-    m_timeLabel(this)
+    m_timeLabel(this),
+    m_checkpointRemainingLabel(this)
 {
     if (!scene)
     {
@@ -20,11 +21,15 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     }
     else
     {
+        //Placement du label du timer
         m_timeLabel.setGeometry(0,0,500,50);
         m_timeLabel.setStyleSheet("color: rgb(255, 47, 28);font: 24pt \"MS Shell Dlg 2\";");
+
+        //Placement du label du nombre de checkpoints restants
+        m_checkpointRemainingLabel.setGeometry(parent->width()-220,0,220,50);
+        m_checkpointRemainingLabel.setStyleSheet("color: rgb(255, 47, 28);font: 14pt \"MS Shell Dlg 2\";");
+
         // prépare la scène pour l'affichage
-
-
         this->setScene(scene->graphicsScene());
         this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -136,9 +141,12 @@ void GameWidget::timerEvent(QTimerEvent *)
             centerOn(view.position());
             scale(view.zoom(), view.zoom());
 
-            /// mise à jour du compteur
-            QString timeString =utils::showableTime(m_scene->time().elapsed());
-            m_timeLabel.setText(timeString);
+            /// mise à jour du compteur (Affichage
+            m_timeLabel.setText(utils::showableTime(m_scene->time().elapsed()));
+
+            /// mise à jour du nombre de checkpoint restant (Affichage)
+            QString checkpointRemainingString = "Checkpoint Restant(s) :"+QString::number(m_scene->checkpointListener()->checkpointRemaining());
+            m_checkpointRemainingLabel.setText(checkpointRemainingString);
         }
     }
 }

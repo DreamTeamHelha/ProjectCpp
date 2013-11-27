@@ -44,5 +44,6 @@ private:
     QString      m_levelName;
     Scene       *m_scene;
     PlayerInput  m_playerInput;
-    QLabel  m_timeLabel;
+    QLabel       m_timeLabel;
+    QLabel       m_checkpointRemainingLabel;
 };

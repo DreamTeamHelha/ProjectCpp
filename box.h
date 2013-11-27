@@ -15,5 +15,6 @@ class BoxFactory : public ObjectFactory
 {
 public:
 
+    /// Crée un objet 'Box' et le retourne
     Object *create() const;
 };
