@@ -42,7 +42,7 @@ Object* BoxFactory::create() const
     // - création de la forme
     b2PolygonShape shape;
     shape.SetAsBox(16, 16);
-    body->CreateFixture(&shape, 1);
+    body->CreateFixture(&shape, 2);
 
     // création de la box et la retourne
     return new Box(graphics, body);

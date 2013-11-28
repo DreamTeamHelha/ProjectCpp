@@ -21,11 +21,13 @@ public:
     float accelRate          (GroundType groundType) const;
     float brakeRate          (GroundType groundType) const;
     float maxTorque          (GroundType groundType) const;
+    float angularAccel       (GroundType groundType) const;
     float maxLateralFriction (GroundType groundType) const;
 
     void setAccelRate          (GroundType groundType, float value);
     void setBrakeRate          (GroundType groundType, float value);
     void setMaxTorque          (GroundType groundType, float value);
+    void setAngularAccel       (GroundType groundType, float value);
     void setMaxLateralFriction (GroundType groundType, float value);
 
 private:
@@ -38,6 +40,7 @@ private:
     float m_accelRate[GroundType::_count];          // facteur d'accélération
     float m_brakeRate[GroundType::_count];          // facteur de freinage / marche arrière
     float m_maxTorque[GroundType::_count];          // vitesse de rotation maximale
+    float m_angularAccel[GroundType::_count];       // accélération angulaire (direction)
     float m_maxLateralFriction[GroundType::_count]; // adhérence
 };
 

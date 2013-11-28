@@ -16,6 +16,7 @@ Car::Car(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
     m_accelRate({0}),
     m_brakeRate({0}),
     m_maxTorque({0}),
+    m_angularAccel({0}),
     m_maxLateralFriction({0})
 {
 }
@@ -36,10 +37,11 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
     float maxLateralFriction = 10; // ''
     float accelRate = 1000000;
     float brakeRate = 500000;
+    float angularAccel = 300000;
 
     if (physicsBody())
     {
-        // -- test --
+        // adapte le comportement du véhicule en fonction du sol où il se trouve
         if (m_tilemap)
         {
             Vector tilepos = physicsBody()->GetPosition();
@@ -50,55 +52,63 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
             accelRate = m_accelRate[ground];
             brakeRate = m_brakeRate[ground];
             maxTorque = m_maxTorque[ground];
+            angularAccel = m_angularAccel[ground];
             maxLateralFriction = m_maxLateralFriction[ground];
         }
 
         // direction
         if (steering != 0)
         {
-            steering *= 300000 * Vector(physicsBody()->GetLinearVelocity()).length();
-            if (steering > maxTorque)
+            Vector velocity = Vector(physicsBody()->GetLinearVelocity()).normalized();
+            Vector normal = Vector(physicsBody()->GetWorldVector(Vector(1,0)));
+            float lateralFriction = b2Dot(normal, velocity);
+
+            angularAccel *= steering * Vector(physicsBody()->GetLinearVelocity()).length()/100;// * lateralFriction;
+            if (angularAccel > maxTorque)
             {
-                steering = maxTorque;
+                angularAccel = maxTorque;
             }
-            else if (steering < -maxTorque)
+            else if (angularAccel < -maxTorque)
             {
-                steering = -maxTorque;
+                angularAccel = -maxTorque;
             }
-            physicsBody()->ApplyAngularImpulse(steering);
+            physicsBody()->ApplyAngularImpulse(angularAccel);
         }
 
         // accélération
-        float accel = 0;
+        {
+            float accel = 0;
 
-        if (throttle > 0)
-            accel += accelRate;
-        if (brakes > 0)
-           accel -= brakeRate;
+            if (throttle > 0)
+                accel += accelRate;
+            if (brakes > 0)
+               accel -= brakeRate;
 
-        Vector vAccel = (Vector)(Rotation::radians(physicsBody()->GetAngle()));
-        vAccel *= accel;
+            Vector vAccel = (Vector)(Rotation::radians(physicsBody()->GetAngle()));
+            vAccel *= accel;
 
-        physicsBody()->ApplyLinearImpulse(vAccel, physicsBody()->GetWorldCenter());
-        //physicsBody()->SetLinearVelocity((Vector)physicsBody()->GetLinearVelocity() + vAccel);
+            physicsBody()->ApplyLinearImpulse(vAccel, physicsBody()->GetWorldCenter());
+        }
 
         // adhérence
         //*
-        Vector velocity = physicsBody()->GetLinearVelocity();
-        Vector normal = physicsBody()->GetWorldVector(Vector(0,1));
-        float lateralFriction = b2Dot(normal, velocity);
-        if (lateralFriction > maxLateralFriction)
         {
-            lateralFriction = maxLateralFriction;
-        }
-        else if (lateralFriction <- maxLateralFriction)
-        {
-            lateralFriction = -maxLateralFriction;
-        }
-        normal *= lateralFriction;
+            Vector velocity = physicsBody()->GetLinearVelocity();
+            Vector normal = physicsBody()->GetWorldVector(Vector(0,1));
+            float lateralFriction = b2Dot(normal, velocity);
+            if (lateralFriction > maxLateralFriction)
+            {
+                lateralFriction = maxLateralFriction;
+            }
+            else if (lateralFriction <- maxLateralFriction)
+            {
+                lateralFriction = -maxLateralFriction;
+            }
+            normal *= lateralFriction;
 
-        Vector impulse = -normal * physicsBody()->GetMass();
-        physicsBody()->ApplyLinearImpulse( impulse, physicsBody()->GetWorldCenter() );
+            Vector impulse = -normal * physicsBody()->GetMass();
+            physicsBody()->ApplyLinearImpulse( impulse, physicsBody()->GetWorldCenter() );
+        }
     }
 }
 
@@ -125,6 +135,15 @@ float Car::maxTorque(GroundType groundType) const
     if (groundType >= 0 && groundType < GroundType::_count)
     {
         return m_maxTorque[groundType];
+    }
+    return 0;
+}
+
+float Car::angularAccel(GroundType groundType) const
+{
+    if (groundType >= 0 && groundType < GroundType::_count)
+    {
+        return m_angularAccel[groundType];
     }
     return 0;
 }
@@ -159,6 +178,14 @@ void Car::setMaxTorque(GroundType groundType, float value)
     if (groundType >= 0 && groundType < GroundType::_count)
     {
         m_maxTorque[groundType] = value;
+    }
+}
+
+void Car::setAngularAccel(GroundType groundType, float value)
+{
+    if (groundType >= 0 && groundType < GroundType::_count)
+    {
+        m_angularAccel[groundType] = value;
     }
 }
 
@@ -203,7 +230,7 @@ Object *CarFactory::create() const
     // - création de la forme
     b2PolygonShape shape;
     shape.SetAsBox(33, 17);
-    b2Fixture *fixture =  body->CreateFixture(&shape, 100);
+    b2Fixture *fixture =  body->CreateFixture(&shape, 1);
 
     // création de la voiture
     Car *car = new Car(graphics, body);
@@ -212,17 +239,21 @@ Object *CarFactory::create() const
     // paramétrage
     car->setTilemap(scene()->tilemap());
 
-    car->setAccelRate(GroundType::Asphalt, 1200000);
-    car->setAccelRate(GroundType::Grass, 600000);
-    car->setAccelRate(GroundType::Mud, 1100000);
+    car->setAccelRate(GroundType::Asphalt, 12000);
+    car->setAccelRate(GroundType::Grass, 6000);
+    car->setAccelRate(GroundType::Mud, 11000);
 
-    car->setBrakeRate(GroundType::Asphalt, 500000);
-    car->setBrakeRate(GroundType::Grass, 300000);
-    car->setBrakeRate(GroundType::Mud, 400000);
+    car->setBrakeRate(GroundType::Asphalt, 5000);
+    car->setBrakeRate(GroundType::Grass, 3000);
+    car->setBrakeRate(GroundType::Mud, 4000);
 
-    car->setMaxTorque(GroundType::Asphalt, 20000000);
-    car->setMaxTorque(GroundType::Grass, 40000000);
-    car->setMaxTorque(GroundType::Mud, 30000000);
+    car->setMaxTorque(GroundType::Asphalt, 200000);
+    car->setMaxTorque(GroundType::Grass, 400000);
+    car->setMaxTorque(GroundType::Mud, 300000);
+
+    car->setAngularAccel(GroundType::Asphalt, 300000);
+    car->setAngularAccel(GroundType::Grass, 200000);
+    car->setAngularAccel(GroundType::Mud, 100000);
 
     car->setMaxLateralFriction(GroundType::Asphalt, 6);
     car->setMaxLateralFriction(GroundType::Grass, 2);
