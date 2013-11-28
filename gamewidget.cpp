@@ -4,12 +4,15 @@
 #include <QKeyEvent>
 #include "utils.h"
 #include <iostream>
+#include "mainwindow.h"
+#include "pausemenu.h"
 
 GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     QGraphicsView(parent),
     m_scene(scene),
     m_timeLabel(this),
-    m_checkpointRemainingLabel(this)
+    m_checkpointRemainingLabel(this),
+    m_paused(false)
 {
     if (!scene)
     {
@@ -63,6 +66,10 @@ const PlayerInput& GameWidget::playerInput() const
     return m_playerInput;
 }
 
+const bool GameWidget::paused()const
+{
+    return m_paused;
+}
 
 void GameWidget::keyPressEvent(QKeyEvent *event)
 {
@@ -86,6 +93,7 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
 
     case Qt::Key_Escape:
         m_playerInput.setPause(true);
+        pause();
         break;
 
     default:
@@ -124,29 +132,47 @@ void GameWidget::keyReleaseEvent(QKeyEvent *event)
 
 void GameWidget::timerEvent(QTimerEvent *)
 {
-    if (m_scene)
+    if(!m_paused)
     {
-
-        if(m_scene->isFinished())
+        if (m_scene)
         {
-          //QMessageBox::information(nullptr, "Réussite", "Fin de course!");
-        }
-        else
-        {
-            /// mise à jour de la scène
-            m_scene->update();
 
-            /// mise à jour de la caméra
-            View view = m_scene->calcViewPoint();
-            centerOn(view.position());
-            scale(view.zoom(), view.zoom());
+            if(m_scene->isFinished())
+            {
+            //QMessageBox::information(nullptr, "Réussite", "Fin de course!");
+            }
+            else
+            {
+                /// mise à jour de la scène
+                m_scene->update();
 
-            /// mise à jour du compteur (Affichage
-            m_timeLabel.setText(utils::showableTime(m_scene->time().elapsed()));
+                 /// mise à jour de la caméra
+                View view = m_scene->calcViewPoint();
+                centerOn(view.position());
+                scale(view.zoom(), view.zoom());
 
-            /// mise à jour du nombre de checkpoint restant (Affichage)
-            QString checkpointRemainingString = "Checkpoint Restant(s) :"+QString::number(m_scene->checkpointListener()->checkpointRemaining());
-            m_checkpointRemainingLabel.setText(checkpointRemainingString);
+                /// mise à jour du compteur (Affichage
+                m_timeLabel.setText(utils::showableTime(m_scene->time().elapsed()));
+
+                /// mise à jour du nombre de checkpoint restant (Affichage)
+                QString checkpointRemainingString = "Checkpoint Restant(s) :"+QString::number(m_scene->checkpointListener()->checkpointRemaining());
+                m_checkpointRemainingLabel.setText(checkpointRemainingString);
+            }
         }
     }
+}
+
+void GameWidget::pause()
+{
+    if(!m_paused)
+    {
+        m_paused=true;
+        emit gamePaused(m_scene->time());
+
+    }
+}
+
+void GameWidget::setPaused(bool paused)
+{
+    m_paused=paused;
 }

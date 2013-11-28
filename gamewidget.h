@@ -11,6 +11,7 @@
 ///
 class GameWidget : public QGraphicsView
 {
+    Q_OBJECT
 public:
 
     ///
@@ -26,6 +27,14 @@ public:
     ///
           Scene       * scene()       const;
     const PlayerInput & playerInput() const;
+    const bool          paused()       const;
+
+    void pause();
+    void setPaused(bool paused);
+
+signals:
+
+    void gamePaused(QTime);
 
 protected:
 
@@ -46,4 +55,5 @@ private:
     PlayerInput  m_playerInput;
     QLabel       m_timeLabel;
     QLabel       m_checkpointRemainingLabel;
+    bool         m_paused;
 };

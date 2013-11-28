@@ -1,9 +1,9 @@
 #pragma once
 
-#include <QWidget>
+#include <QFrame>
 #include <QString>
 
-class Panel : public QWidget
+class Panel : public QFrame
 {
     Q_OBJECT
 public:

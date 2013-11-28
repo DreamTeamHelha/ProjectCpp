@@ -93,6 +93,8 @@ public:
     ///
     const CheckpointListener * checkpointListener() const;
 
+    void setTime(int);
+
 
 private:
 
