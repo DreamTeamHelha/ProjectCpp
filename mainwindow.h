@@ -40,6 +40,13 @@ public slots:
     ///
     void startGame(const QString& levelName, const QString& carClassName);
 
+    ///
+    /// Provoque la mise en pause du jeu
+    ///
+    void pauseGame(QTime);
+
+    void continueGame();
+
 private:
 
     Ui::MainWindow *ui;

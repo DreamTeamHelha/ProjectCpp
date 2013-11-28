@@ -3,6 +3,7 @@
 #include "menu.h"
 #include "formtools.h"
 #include <QMessageBox>
+#include "pausemenu.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -38,6 +39,12 @@ void MainWindow::showPanel(const QString &menuName)
         m_panel->close();
         m_panel->deleteLater();
         m_panel = nullptr;
+    }
+    if(m_gameWidget)
+    {
+        m_gameWidget->close();
+        m_gameWidget->deleteLater();
+        m_gameWidget = nullptr;
     }
 
     // crée le panel correspondant
@@ -80,6 +87,7 @@ void MainWindow::startGame(const QString &levelName, const QString &carClassName
         m_gameWidget = new GameWidget(scene, this);
         m_gameWidget->setGeometry(0,0,800,600);
         m_gameWidget->show();
+        connect(m_gameWidget,SIGNAL(gamePaused(QTime)),this,SLOT(pauseGame(QTime)));
     }
     else
     {
@@ -87,4 +95,26 @@ void MainWindow::startGame(const QString &levelName, const QString &carClassName
         delete scene;
         QMessageBox::information(this, "Erreur", "Le chargement du niveau '" + levelName + "' avec le véhicule '" + carClassName + "' a échoué!", 0);
     }
+}
+
+void MainWindow::pauseGame(QTime)
+{
+    if(!m_gameWidget)
+    {
+        std::cout<<"Pas de game Widget disponible"<<std::endl;
+        return;
+    }
+    m_panel = new PauseMenu(m_gameWidget->scene()->time().elapsed(),m_gameWidget);
+    m_panel->show();
+    std::cout<<"Affichage Menu Pause"<<std::endl;
+}
+
+void MainWindow::continueGame()
+{
+    m_gameWidget->scene()->setTime((dynamic_cast<PauseMenu*>(m_panel))->time());
+    m_panel->close();
+    m_panel->deleteLater();
+    m_panel = nullptr;
+    m_gameWidget->setPaused(false);
+
 }

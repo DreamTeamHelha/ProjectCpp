@@ -77,7 +77,8 @@ SOURCES += \
     menuingame.cpp \
     view.cpp \
     panel.cpp \
-    score.cpp
+    score.cpp \
+    pausemenu.cpp
 
 HEADERS += \
     scene.h \
@@ -153,7 +154,8 @@ HEADERS += \
     menuingame.h \
     view.h \
     panel.h \
-    score.h
+    score.h \
+    pausemenu.h
 
 FORMS += \
     gamewindow.ui \

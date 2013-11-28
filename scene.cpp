@@ -259,3 +259,11 @@ const CheckpointListener * Scene::checkpointListener()const
     return m_checkpointListener;
 }
 
+void Scene::setTime(int time)
+{
+    m_time = QTime();
+    m_time.start();
+    std::cout<<time;
+    m_time = m_time.addMSecs(-time);
+}
+
