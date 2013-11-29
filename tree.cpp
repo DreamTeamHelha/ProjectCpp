@@ -18,7 +18,7 @@ Object* TreeFactory::create() const
         return nullptr;
 
     // création de la partie visible
-    QPixmap *pixmap = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tree64.png");
+    QPixmap *pixmap = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tree128.png");
     if (pixmap->isNull())
     {
         QMessageBox::information(nullptr, "Erreur", "L'image n'est pas trouvée!");
@@ -26,7 +26,7 @@ Object* TreeFactory::create() const
     QGraphicsPixmapItem *graphics = new QGraphicsPixmapItem(*pixmap);
     graphics->setPos(position());
     graphics->setRotation(rotation().degrees());
-    graphics->setOffset(-32,-32);
+    graphics->setOffset(-64,-64);
     scene()->graphicsScene()->addItem(graphics);
 
     // création de la partie physique
@@ -38,7 +38,7 @@ Object* TreeFactory::create() const
     b2Body *body = scene()->physicsWorld()->CreateBody(&bodyDef);
     // - création de la forme
     b2CircleShape shape;
-    shape.m_radius = 10;
+    shape.m_radius = 15;
     body->CreateFixture(&shape, 1);
 
     // création du tree et le retourne
