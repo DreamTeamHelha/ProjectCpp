@@ -79,7 +79,9 @@ SOURCES += \
     panel.cpp \
     score.cpp \
     pausemenu.cpp \
-    credits.cpp
+    credits.cpp \
+    tracklist.cpp \
+    choosewidget.cpp
 
 HEADERS += \
     scene.h \
@@ -157,7 +159,9 @@ HEADERS += \
     score.h \
     pausemenu.h \
     formtools.h \
-    credits.h
+    credits.h \
+    tracklist.h \
+    choosewidget.h
 
 FORMS += \
     gamewindow.ui \
@@ -165,4 +169,5 @@ FORMS += \
     mainwindow.ui \
     menu.ui \
     menuingame.ui \
-    credits.ui
+    credits.ui \
+    choosewidget.ui

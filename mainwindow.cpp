@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include "pausemenu.h"
 #include "credits.h"
+#include "choosewidget.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -63,6 +65,10 @@ void MainWindow::showPanel(const QString &menuName)
     else if (menuName == "Credit")
     {
         m_panel = new credits(this);
+    }
+    else if (menuName == "Choose")
+    {
+        m_panel = new ChooseWidget(this);
     }
 
     // crée les connexions

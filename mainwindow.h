@@ -45,7 +45,11 @@ public slots:
     ///
     void pauseGame(QTime);
 
+    ///
+    /// Provoque la fin de la pause
+    ///
     void continueGame();
+
 
 private:
 

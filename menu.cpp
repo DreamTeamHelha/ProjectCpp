@@ -54,7 +54,7 @@ void Menu::AfficherJeu()
     delete m_soundMenu;
     m_soundMenu = nullptr;
 
-    emit startGame("Raph_Paradise", "Car");
+    emit showPanel("Choose");
 }
 void Menu::afficherCredit()
 {
