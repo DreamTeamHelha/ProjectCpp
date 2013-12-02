@@ -1,0 +1,71 @@
+[
+	{
+		"class":"PlayerStart",
+		"x":176,
+		"y":176,
+		"rot":0
+	},
+	
+	{
+		"class":"Checkpoint",
+		"x":528,
+		"y":560,
+		"rot":0
+	},
+	
+	{
+		"class":"Checkpoint",
+		"x":816,
+		"y":1040,
+		"rot":0
+	},
+	
+	{
+		"class":"Checkpoint",
+		"x":1456,
+		"y":1456,
+		"rot":0
+	},
+	
+		{
+		"class":"Checkpoint",
+		"x":3248,
+		"y":912,
+		"rot":0
+	},
+	
+		{
+		"class":"Checkpoint",
+		"x":2928,
+		"y":1520,
+		"rot":0
+	},
+	
+		{
+		"class":"Checkpoint",
+		"x":3280,
+		"y":2672,
+		"rot":0
+	},
+	
+		{
+		"class":"Checkpoint",
+		"x":1296,
+		"y":1968,
+		"rot":0
+	},
+	
+		{
+		"class":"Checkpoint",
+		"x":880,
+		"y":2960,
+		"rot":0
+	},
+	
+		{
+		"class":"Checkpoint",
+		"x":2672,
+		"y":3664,
+		"rot":0
+	}
+]
