@@ -21,6 +21,7 @@ private slots:
     void afficherTools();
     void exitApp();
     void AfficherJeu();
+    void afficherCredit();
 
 private:
 

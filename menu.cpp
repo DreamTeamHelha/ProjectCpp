@@ -19,7 +19,7 @@ Menu::Menu(QWidget *parent) :
     QObject::connect(ui->b_Settings,SIGNAL(clicked()),this,SLOT(afficherTools()));
     QObject::connect(ui->b_Exit,SIGNAL(clicked()),this,SLOT(exitApp()));
     QObject::connect(ui->b_Race,SIGNAL(clicked()),this,SLOT(AfficherJeu()));
-
+    QObject::connect(ui->b_Credits,SIGNAL(clicked()),this,SLOT(afficherCredit()));
     //modification de l'icon des boutons menu
     ui->b_Race->setIcon((QIcon)(QCoreApplication::applicationDirPath() + "/data/img/RaceMenu.png"));
     ui->b_Settings->setIcon((QIcon)(QCoreApplication::applicationDirPath() + "/data/img/tools.jpg"));
@@ -55,4 +55,8 @@ void Menu::AfficherJeu()
     m_soundMenu = nullptr;
 
     emit startGame("Raph_Paradise", "Car");
+}
+void Menu::afficherCredit()
+{
+    emit showPanel("Credit");
 }
