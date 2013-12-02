@@ -16,14 +16,51 @@
   <widget class="QPushButton" name="b_RetourMenu">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>240</y>
+     <x>90</x>
+     <y>280</y>
      <width>241</width>
      <height>61</height>
     </rect>
    </property>
    <property name="text">
     <string>Retour au menu</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>70</y>
+     <width>501</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Programme réalisé par Sirtoli Sébastien, Desaegher Raphël, Marié Paulino et Le lanceur de cacahouètes 
+ étudiants de la HELHa Campus Mons – IRAM,
+dans le cadre du cours de POO de Mr. V. Altares.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>30</y>
+     <width>81</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Comic Sans MS</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>Crédits</string>
    </property>
   </widget>
  </widget>
