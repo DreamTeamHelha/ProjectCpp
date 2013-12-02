@@ -24,7 +24,9 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
         QMessageBox::information(nullptr, "Erreur (GameWidget)", "Le niveau n'a pas été chargé!", 0);
     }
     else
-    {
+    {       
+        this->setCursor(Qt::BlankCursor);
+
         //Placement du label du timer
         m_timeLabel.setGeometry(0,0,500,50);
         m_timeLabel.setStyleSheet("color: rgb(255, 47, 28);font: 24pt \"MS Shell Dlg 2\";");
@@ -47,6 +49,8 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
 
         //Démarrage du timer de temps
         scene->start();
+
+
     }
 }
 
@@ -169,6 +173,7 @@ void GameWidget::pause()
 {
     if(!m_paused)
     {
+        this->setCursor(Qt::ArrowCursor);
         m_paused=true;
         emit gamePaused(m_scene->time());
 
