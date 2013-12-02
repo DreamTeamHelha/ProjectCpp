@@ -12,7 +12,8 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     m_scene(scene),
     m_timeLabel(this),
     m_checkpointRemainingLabel(this),
-    m_paused(false)
+    m_paused(false),
+    m_cameraScale(1.f)
 {
     if (!scene)
     {
@@ -149,7 +150,9 @@ void GameWidget::timerEvent(QTimerEvent *)
                  /// mise à jour de la caméra
                 View view = m_scene->calcViewPoint();
                 centerOn(view.position());
-                scale(view.zoom(), view.zoom());
+                float cameraScale = 1 - (m_cameraScale - view.zoom());
+                scale(cameraScale, cameraScale);
+                m_cameraScale = view.zoom();
 
                 /// mise à jour du compteur (Affichage
                 m_timeLabel.setText(utils::showableTime(m_scene->time().elapsed()));

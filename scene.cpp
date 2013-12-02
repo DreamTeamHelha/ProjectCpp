@@ -224,12 +224,19 @@ View Scene::calcViewPoint()
     {
         Vector viewPoint;
         viewPoint = Vector(m_car->physicsBody()->GetPosition());
-        viewPoint += Vector(m_car->physicsBody()->GetLinearVelocity()) * 0.2f;
+        viewPoint += Vector(m_car->physicsBody()->GetLinearVelocity()) * 0.5f;
         view.setPosition(viewPoint);
 
-        // zoom à venir
-        //view.setZoom(.5);
-        //view.setZoom( Vector(m_car->physicsBody()->GetLinearVelocity()).length() );
+        float velocity = (Vector(m_car->physicsBody()->GetLinearVelocity()).length() / 1500.f) + 1;
+        if (velocity > 0)
+        {
+            view.setZoom(1 / velocity);
+            std::cout << "velocity:" << velocity << " -> zoom:" << view.zoom() << std::endl;
+        }
+        else
+        {
+            view.setZoom(1.f);
+        }
     }
     return view;
 }

@@ -56,4 +56,5 @@ private:
     QLabel       m_timeLabel;
     QLabel       m_checkpointRemainingLabel;
     bool         m_paused;
+    float        m_cameraScale;
 };
