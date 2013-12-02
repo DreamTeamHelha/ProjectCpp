@@ -12,6 +12,10 @@ MainWindow::MainWindow(QWidget *parent) :
     m_gameWidget(nullptr)
 {
     ui->setupUi(this);
+    /* TEST
+    QPixmap cursor(QCoreApplication::applicationDirPath() + "/data/carSirto.png");
+    this->setCursor( QCursor(cursor,0,0) );
+    */
 
     showPanel("Menu");
 }
@@ -119,6 +123,7 @@ void MainWindow::continueGame()
     m_panel->close();
     m_panel->deleteLater();
     m_panel = nullptr;
+    m_gameWidget->setCursor(Qt::BlankCursor);
     m_gameWidget->setPaused(false);
 
 }
