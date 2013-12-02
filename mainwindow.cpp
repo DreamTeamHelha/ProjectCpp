@@ -4,7 +4,7 @@
 #include "formtools.h"
 #include <QMessageBox>
 #include "pausemenu.h"
-
+#include "credits.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -55,6 +55,10 @@ void MainWindow::showPanel(const QString &menuName)
     else if (menuName == "Tools")
     {
         m_panel = new FormTools(this);
+    }
+    else if (menuName == "Credit")
+    {
+        m_panel = new credits(this);
     }
 
     // crée les connexions
