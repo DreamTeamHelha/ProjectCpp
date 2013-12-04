@@ -60,7 +60,6 @@ SOURCES += \
     car.cpp \
     vector.cpp \
     rotation.cpp \
-    gamewindow.cpp \
     SFML/System/Time.cpp \
     object.cpp \
     tilemap.cpp \
@@ -136,7 +135,6 @@ HEADERS += \
     car.h \
     vector.h \
     rotation.h \
-    gamewindow.h \
     SFML/System/Time.hpp \
     SFML/System/Export.hpp \
     SFML/Config.hpp \
