@@ -135,7 +135,7 @@ void GameWidget::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void GameWidget::timerEvent(QTimerEvent *)
+void GameWidget::timerEvent(QTimerEvent *timerEvent)
 {
     if(!m_paused)
     {
@@ -144,7 +144,8 @@ void GameWidget::timerEvent(QTimerEvent *)
 
             if(m_scene->isFinished())
             {
-            //QMessageBox::information(nullptr, "Réussite", "Fin de course!");
+                killTimer(timerEvent->timerId());
+                emit showScore("Score");
             }
             else
             {

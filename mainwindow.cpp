@@ -6,6 +6,7 @@
 #include "pausemenu.h"
 #include "credits.h"
 #include "choosewidget.h"
+#include "scorewindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -70,6 +71,14 @@ void MainWindow::showPanel(const QString &menuName)
     {
         m_panel = new ChooseWidget(this);
     }
+    else if (menuName == "Score")
+    {
+        std::cout<<"Reception du signal"<<std::endl;
+        m_panel = new ScoreWindow(this,m_gameWidget->scene()->time().elapsed());
+        m_gameWidget->close();
+        m_gameWidget->deleteLater();
+        m_gameWidget=nullptr;
+     }
 
     // crée les connexions
     if (m_panel)
@@ -102,6 +111,7 @@ void MainWindow::startGame(const QString &levelName, const QString &carClassName
         m_gameWidget->setGeometry(0,0,800,600);
         m_gameWidget->show();
         connect(m_gameWidget,SIGNAL(gamePaused(QTime)),this,SLOT(pauseGame(QTime)));
+        connect(m_gameWidget, SIGNAL(showScore(QString)), this, SLOT(showPanel(QString)));
     }
     else
     {

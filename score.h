@@ -16,5 +16,7 @@ public:
     bool operator==(Score const& score2)const;
     bool operator<(Score const& score2)const;
     bool operator>(Score const& score2)const;
+    QString name() const;
+    int time() const;
 };
 

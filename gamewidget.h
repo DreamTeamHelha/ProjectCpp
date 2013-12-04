@@ -35,6 +35,7 @@ public:
 signals:
 
     void gamePaused(QTime);
+    void showScore (const QString&);
 
 protected:
 
