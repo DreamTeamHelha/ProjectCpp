@@ -36,9 +36,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Programme réalisé par Sirtoli Sébastien, Desaegher Raphël, Marié Paulino et Le lanceur de cacahouètes 
- étudiants de la HELHa Campus Mons – IRAM,
-dans le cadre du cours de POO de Mr. V. Altares.</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Programme réalisé par Sirtoli Sébastien, Desaegher Raphël, Marié Paulino et Olivier Elise,&lt;/p&gt;&lt;p&gt; étudiants de la HELHa Campus Mons – IRAM,&lt;/p&gt;&lt;p&gt;dans le cadre du cours de POO de Mr. V. Altares.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
