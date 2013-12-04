@@ -111,6 +111,7 @@ Car *Scene::createPlayerCar(const Vector &position, const Rotation &rotation, Ob
     if (m_car)
     {
         addObject(m_car);
+        m_view.setPosition(Vector(m_car->physicsBody()->GetPosition()));
     }
     else
     {
@@ -225,8 +226,17 @@ View Scene::calcViewPoint()
         Vector viewPoint;
         viewPoint = Vector(m_car->physicsBody()->GetPosition());
         viewPoint += Vector(m_car->physicsBody()->GetLinearVelocity()) * 0.5f;
+        if ( (viewPoint - m_view.position()).length() < 1)
+        {
+            viewPoint = m_view.position();
+        }
+        else
+        {
+
+        }
         view.setPosition(viewPoint);
 
+        //*
         float velocity = (Vector(m_car->physicsBody()->GetLinearVelocity()).length() / 1500.f) + 1;
         if (velocity > 0)
         {
@@ -237,8 +247,11 @@ View Scene::calcViewPoint()
         {
             view.setZoom(1.f);
         }
+        //*/
     }
-    return view;
+
+    m_view = View::interp(m_view, view, 0.1);
+    return m_view;
 }
 
 bool Scene::loaded() const

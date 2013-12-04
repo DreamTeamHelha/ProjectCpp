@@ -23,6 +23,8 @@ public:
     float zoom() const;
     void setZoom(float zoom);
 
+    static View interp(const View & start, const View & end, float factor);
+
 private:
 
     Vector m_position;

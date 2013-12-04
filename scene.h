@@ -107,6 +107,7 @@ private:
     bool                 m_loaded;
     CheckpointListener  *m_checkpointListener;
     QTime                m_time;
+    View                 m_view;
 
     ///
     /// Permet de charger la map
