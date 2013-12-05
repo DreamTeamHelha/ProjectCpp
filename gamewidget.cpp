@@ -71,7 +71,7 @@ const PlayerInput& GameWidget::playerInput() const
     return m_playerInput;
 }
 
-const bool GameWidget::paused()const
+bool GameWidget::paused()const
 {
     return m_paused;
 }
@@ -155,9 +155,16 @@ void GameWidget::timerEvent(QTimerEvent *timerEvent)
                  /// mise à jour de la caméra
                 View view = m_scene->calcViewPoint();
                 centerOn(view.position());
-                float cameraScale = 1 - (m_cameraScale - view.zoom());
-                scale(cameraScale, cameraScale);
-                m_cameraScale = view.zoom();
+                // "crante" l'effet de zoom, car visiblement, changer l'échelle de la vue dans qt prend du temps
+                // et ralenti considérablement le jeu lorsque cela est fait à chaque frame.
+                float zoom = (int)(view.zoom()*200)/200.f;
+                std::cout << view.zoom() << " --- " << zoom << " --- " << m_cameraScale << std::endl;
+                if (zoom != m_cameraScale)
+                {
+                    float cameraScale = 1 - (m_cameraScale - zoom);
+                    scale(cameraScale, cameraScale);
+                    m_cameraScale = zoom;
+                }
 
                 /// mise à jour du compteur (Affichage
                 m_timeLabel.setText(utils::showableTime(m_scene->time().elapsed()));

@@ -27,7 +27,7 @@ public:
     ///
           Scene       * scene()       const;
     const PlayerInput & playerInput() const;
-    const bool          paused()       const;
+    bool paused()       const;
 
     void pause();
     void setPaused(bool paused);
