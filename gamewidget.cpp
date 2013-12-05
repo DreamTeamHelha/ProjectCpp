@@ -13,7 +13,8 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     m_timeLabel(this),
     m_checkpointRemainingLabel(this),
     m_paused(false),
-    m_cameraScale(1.f)
+    m_cameraScale(1.f),
+    m_frameCount(0)
 {
     if (!scene)
     {
@@ -157,13 +158,20 @@ void GameWidget::timerEvent(QTimerEvent *timerEvent)
                 centerOn(view.position());
                 // "crante" l'effet de zoom, car visiblement, changer l'échelle de la vue dans qt prend du temps
                 // et ralenti considérablement le jeu lorsque cela est fait à chaque frame.
-                float zoom = (int)(view.zoom()*200)/200.f;
-                std::cout << view.zoom() << " --- " << zoom << " --- " << m_cameraScale << std::endl;
-                if (zoom != m_cameraScale)
+                //float zoom = (int)(view.zoom()*200)/200.f;
+                //std::cout << view.zoom() << " --- " << zoom << " --- " << m_cameraScale << std::endl;
+                m_frameCount++;
+                if (m_frameCount == 3)
+                    m_frameCount = 0;
+                if (m_frameCount == 0)
                 {
-                    float cameraScale = 1 - (m_cameraScale - zoom);
-                    scale(cameraScale, cameraScale);
-                    m_cameraScale = zoom;
+                    std::cout << "Application du zoom" << std::endl;
+                    if (view.zoom() != m_cameraScale)
+                    {
+                        float cameraScale = 1 - (m_cameraScale - view.zoom());
+                        m_cameraScale = view.zoom();
+                        scale(cameraScale, cameraScale);
+                    }
                 }
 
                 /// mise à jour du compteur (Affichage

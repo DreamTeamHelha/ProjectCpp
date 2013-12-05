@@ -58,4 +58,5 @@ private:
     QLabel       m_checkpointRemainingLabel;
     bool         m_paused;
     float        m_cameraScale;
+    unsigned     m_frameCount;
 };
