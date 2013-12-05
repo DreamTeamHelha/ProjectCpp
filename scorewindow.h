@@ -13,6 +13,7 @@
 #include <QTime>
 #include <QDebug>
 #include <vector>
+#include <QVector>
 using namespace std;
 
 
@@ -32,25 +33,18 @@ class ScoreWindow : public Panel
 public:
     explicit ScoreWindow(QWidget *parent = 0,int m_time =0);
     ~ScoreWindow();
+    void load();
+    void loadTableView();
 
-    //bool load(const QString& filename);
-    //void addScore();
-   // void addScore(const QString& filename);
 private slots:
 
     void addScore();
-    void afficherMenu();
 
 private:
     Ui::ScoreWindow *ui;
-     //QStandardItemModel *model;
-     QStandardItemModel *model= new QStandardItemModel(0,0,0);
-     QList<QStandardItem*> colTime;
-      QList<QStandardItem*> colName;
-      QList<QStandardItem*> colScore;
-      QStandardItem* itemTime;
-      QStandardItem* itemName;
+
       int           m_time;
+      QVector<Score *> m_scoreVector;
 
    // void addScore(const QString& filename);
 

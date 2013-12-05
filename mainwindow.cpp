@@ -47,12 +47,7 @@ void MainWindow::showPanel(const QString &menuName)
         m_panel->deleteLater();
         m_panel = nullptr;
     }
-    if(m_gameWidget)
-    {
-        m_gameWidget->close();
-        m_gameWidget->deleteLater();
-        m_gameWidget = nullptr;
-    }
+
 
     // crée le panel correspondant
     if (menuName == "Menu")
@@ -73,12 +68,15 @@ void MainWindow::showPanel(const QString &menuName)
     }
     else if (menuName == "Score")
     {
-        std::cout<<"Reception du signal"<<std::endl;
         m_panel = new ScoreWindow(this,m_gameWidget->scene()->time().elapsed());
+     }
+
+    if(m_gameWidget)
+    {
         m_gameWidget->close();
         m_gameWidget->deleteLater();
-        m_gameWidget=nullptr;
-     }
+        m_gameWidget = nullptr;
+    }
 
     // crée les connexions
     if (m_panel)
@@ -105,6 +103,7 @@ void MainWindow::startGame(const QString &levelName, const QString &carClassName
         {
             m_gameWidget->close();
             m_gameWidget->deleteLater();
+            m_gameWidget = nullptr;
         }
 
         m_gameWidget = new GameWidget(scene, this);
