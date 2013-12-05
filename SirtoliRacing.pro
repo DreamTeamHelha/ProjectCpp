@@ -81,7 +81,8 @@ SOURCES += \
     credits.cpp \
     tracklist.cpp \
     choosewidget.cpp \
-    scorewindow.cpp
+    scorewindow.cpp \
+    prestarttimer.cpp
 
 HEADERS += \
     scene.h \
@@ -161,7 +162,8 @@ HEADERS += \
     credits.h \
     tracklist.h \
     choosewidget.h \
-    scorewindow.h
+    scorewindow.h \
+    prestarttimer.h
 
 FORMS += \
     gamewindow.ui \
