@@ -1,7 +1,7 @@
 #pragma once
 
 #include "panel.h"
-#include <QSound>
+
 
 namespace Ui {
 class Menu;
@@ -26,5 +26,5 @@ private slots:
 private:
 
     Ui::Menu *ui;
-    QSound   *m_soundMenu;
+
 };

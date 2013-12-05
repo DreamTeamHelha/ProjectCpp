@@ -4,7 +4,7 @@
 #include <QString>
 #include "panel.h"
 #include "gamewidget.h"
-
+#include <QSound>
 namespace Ui {
 class MainWindow;
 }
@@ -57,5 +57,6 @@ private:
 
     Panel      *m_panel;
     GameWidget *m_gameWidget;
+    QSound   *m_soundMenu;
 };
 

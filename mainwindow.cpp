@@ -7,12 +7,13 @@
 #include "credits.h"
 #include "choosewidget.h"
 #include "scorewindow.h"
-
+#include <QSound>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_panel(nullptr),
-    m_gameWidget(nullptr)
+    m_gameWidget(nullptr),
+    m_soundMenu(nullptr)
 {
     ui->setupUi(this);
     /* TEST
@@ -26,6 +27,10 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    if(m_soundMenu)
+    {
+        delete m_soundMenu;
+    }
 }
 
 Panel *MainWindow::panel() const
@@ -46,6 +51,11 @@ void MainWindow::showPanel(const QString &menuName)
         m_panel->close();
         m_panel->deleteLater();
         m_panel = nullptr;
+    }
+    if(m_soundMenu==nullptr)
+    {
+        m_soundMenu= new QSound(QCoreApplication::applicationDirPath() + "/data/sons/1.wav");
+        m_soundMenu->play();
     }
 
 
@@ -89,6 +99,11 @@ void MainWindow::showPanel(const QString &menuName)
 
 void MainWindow::startGame(const QString &levelName, const QString &carClassName)
 {
+    if(m_soundMenu)
+    {
+        delete m_soundMenu;
+        m_soundMenu=nullptr;
+    }
     Scene *scene = new Scene;
     if (scene->load(levelName, carClassName))
     {
