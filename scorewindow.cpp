@@ -142,6 +142,10 @@ int ScoreWindow::ranked() const
         if(m_time < m_scoreVector[cpt]->time())
             return cpt;
     }
+    if(m_scoreVector.size()<10)
+    {
+        return m_scoreVector.size();
+    }
     return 10;
 }
 
