@@ -7,7 +7,9 @@ class Box : public Object
 {
 public:
 
-    Box(QGraphicsItem *graphicsItem, b2Body *physicsBody);
+    Box(QGraphicsItem *graphicsItem=nullptr, b2Body *physicsBody=nullptr);
+    Box(const Box &b);
+    Box& operator=(const Box &b);
 };
 
 

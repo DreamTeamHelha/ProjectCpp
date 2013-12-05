@@ -14,6 +14,7 @@ public:
 
     ///Permet de savoir si le Checkpoint a déjà été touché
     bool touched();
+   Checkpoint(const Checkpoint &c);
 
 };
 

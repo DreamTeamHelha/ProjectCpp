@@ -56,3 +56,13 @@ bool operator>=(const Rotation& left, const Rotation & right)
     else
         return (right - left).angle() >= utils::pi();
 }
+
+Rotation::Rotation(const Rotation &r){
+    this->m_angle=r.m_angle;
+}
+Rotation& Rotation::operator=(const Rotation &r){
+    if(this!=&r){
+        this->m_angle=r.m_angle;
+    }
+    return *this;
+}

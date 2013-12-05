@@ -65,3 +65,6 @@ bool Checkpoint::touched()
 {
     return m_touched;
 }
+/*Checkpoint::Checkpoint(const Checkpoint &c){
+    this->m_touched=c.m_touched;
+}*/

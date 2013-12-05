@@ -47,3 +47,8 @@ Object* BoxFactory::create() const
     // création de la box et la retourne
     return new Box(graphics, body);
 }
+//Box::Box(const Box &b)  {}
+
+
+
+
