@@ -137,8 +137,6 @@ void ScoreWindow::loadTableView()
 
 int ScoreWindow::ranked() const
 {
-    if(m_scoreVector.size()<10)
-        return m_scoreVector.size();
     for(int cpt = 0;cpt<(m_scoreVector.size()-1);cpt++)
     {
         if(m_time < m_scoreVector[cpt]->time())
