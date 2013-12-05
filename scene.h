@@ -95,6 +95,7 @@ public:
 
     void setTime(int);
 
+    const QString trackName() const;
 
 private:
 
@@ -108,6 +109,7 @@ private:
     CheckpointListener  *m_checkpointListener;
     QTime                m_time;
     View                 m_view;
+    QString              m_trackName;
 
     ///
     /// Permet de charger la map

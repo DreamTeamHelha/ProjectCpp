@@ -25,3 +25,8 @@ int Score::time() const{
 QString Score::name() const{
     return m_name;
 }
+
+void Score::setName(const QString name)
+{
+    m_name = name;
+}

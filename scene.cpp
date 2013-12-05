@@ -45,8 +45,9 @@ b2World *Scene::physicsWorld() const
     return m_physicsWorld;
 }
 
-bool Scene::load(const QString &levelName, const QString &carClassName)
+bool Scene::load(const QString &trackName, const QString &carClassName)
 {
+    m_trackName = trackName;
     //Permet de vérifier que la scène ne soit pas chargée plusieurs fois
     if(m_loaded)
     {
@@ -55,7 +56,7 @@ bool Scene::load(const QString &levelName, const QString &carClassName)
 
     std::cout << "Chargement de la tilemap" << std::endl;
     //Chargement de la map
-    m_tilemap= TilemapLoader::load(QCoreApplication::applicationDirPath()+"/data/tracks/"+levelName+".png");
+    m_tilemap= TilemapLoader::load(QCoreApplication::applicationDirPath()+"/data/tracks/"+m_trackName+".png");
     if (!m_tilemap)
     {
         return false;
@@ -70,7 +71,7 @@ bool Scene::load(const QString &levelName, const QString &carClassName)
     std::cout << "Chargement des objets" << std::endl;
     // chargement des objets
     ObjectLoader objectLoader(this, carClassName);
-    if (!objectLoader.load(QCoreApplication::applicationDirPath()+"/data/Tracks/"+levelName+".json"))
+    if (!objectLoader.load(QCoreApplication::applicationDirPath()+"/data/Tracks/"+m_trackName+".json"))
     {
         return false;
     }
@@ -283,7 +284,10 @@ void Scene::setTime(int time)
 {
     m_time = QTime();
     m_time.start();
-    std::cout<<time;
     m_time = m_time.addMSecs(-time);
 }
 
+const QString Scene::trackName() const
+{
+    return m_trackName;
+}

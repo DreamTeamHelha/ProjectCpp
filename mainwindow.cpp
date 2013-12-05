@@ -68,7 +68,7 @@ void MainWindow::showPanel(const QString &menuName)
     }
     else if (menuName == "Score")
     {
-        m_panel = new ScoreWindow(this,m_gameWidget->scene()->time().elapsed());
+        m_panel = new ScoreWindow(this,m_gameWidget->scene()->time().elapsed(),m_gameWidget->scene()->trackName());
      }
 
     if(m_gameWidget)

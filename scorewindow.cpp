@@ -3,18 +3,47 @@
 #include <iostream>
 #include <QMessageBox>
 #include <utils.h>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QStandardItemModel>
+#include <QStandardItem>
+#include <QList>
+#include <QVector>
 
 
 
-ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed) :
+ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
     Panel(parent),
     m_time(timeElapsed),
+    m_track(track),
+    m_rank(10),
     ui(new Ui::ScoreWindow)
 {
     ui->setupUi(this);
     load();
+    m_rank = ranked();
+    if(m_rank<10)
+    {
+        connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(addScore()));
+        m_scoreVector.insert(m_rank,new Score(m_time,"YOURNAME"));
+        if(m_scoreVector.size()>10)
+        {
+            delete m_scoreVector[10];
+            m_scoreVector.remove(10);
+        }
+        ui->textLabel->setText("Good Game ! you're in the position : " + QString::number(m_rank+1) + ".Your time is : "+ utils::showableTime(m_time) + ". Please enter your name to save this time :" );
+        ui->pushButton->setText("Confirm & Back to the menu");
+        ui->nameText->insertPlainText("YOURNAME");
+    }
+    else
+    {
+        connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(backToMenu()));
+        ui->nameText->hide();
+    }
+
     loadTableView();
-    connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(addScore()));
 }
 
 ScoreWindow::~ScoreWindow()
@@ -27,75 +56,36 @@ ScoreWindow::~ScoreWindow()
     std::cout<<"ScoreWindow deleted"<<std::endl;
 }
 
-
 void ScoreWindow::addScore()
 {
-/*
 
-    QString val;
-    QJsonObject item;
-    QJsonObject item2;
-    QString name;
-    int time;
-    QFile file("C:/Users/Olivier/Desktop/Score.json");
-    Scene m_scene;
+    m_scoreVector[m_rank]->setName(ui->nameText->toPlainText());
+    QJsonArray array;
 
-
-    val = file.readAll();
-    file.close();
-
-    QJsonDocument document = QJsonDocument::fromJson(val.toUtf8());
-    if(document.isEmpty())
+    for(Score*  score: m_scoreVector)
     {
-        return false;
+        QJsonObject object;
+        object.insert("Name",score->name());
+        object.insert("Time",score->time());
+        array.append(object);
     }
 
-    QJsonArray root = document.array();
-    for(int i=0;i<root.count();i++)
-    {
-
-        item =root[i].toObject();
-        name=item["Name"].toString();
-        time=item["Time"].toDouble();
-
-     }
-    QString nom2= ui->nameText->toPlainText();
-    time=m_time;
-
-    item2.insert("Name",nom2);
-    item2.insert("Time",time);
-
-
-   root.insert(root.count(),item2);
-
-    qDebug()<<root;
-
+    QFile file(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_track +".score");
     file.open(QFile::WriteOnly | QFile::Truncate);
-
     if(!file.isOpen())
     {
-        return false;
+        QMessageBox::information(nullptr, "Erreur", "Le fichier de score n'est pas trouve!");
     }
 
-    file.write(QJsonDocument(root).toJson());
-    ui->setupUi(this);
+    file.write(QJsonDocument(array).toJson());
 
-    itemTime=new QStandardItem(QString::number(time));
-
-    itemName=new QStandardItem(QString(nom2));
-    colScore.append(itemName);
-    colScore.append(itemTime);
-
-
-    model->appendRow(colScore);
-
-    emit showPanel("Menu");*/
+    emit showPanel("Menu");
 }
 
 void ScoreWindow::load()
 {
     //Lecture du fichier de score
-    QFile file(QCoreApplication::applicationDirPath() + "/data/score.json");
+    QFile file(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_track +".score");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     if(!file.isOpen())
     {
@@ -145,4 +135,19 @@ void ScoreWindow::loadTableView()
       ui->tableView->setModel(model);
 }
 
+int ScoreWindow::ranked() const
+{
+    if(m_scoreVector.size()<10)
+        return m_scoreVector.size();
+    for(int cpt = 0;cpt<(m_scoreVector.size()-1);cpt++)
+    {
+        if(m_time < m_scoreVector[cpt]->time())
+            return cpt;
+    }
+    return 10;
+}
 
+void ScoreWindow::backToMenu()
+{
+    emit showPanel("Menu");
+}
