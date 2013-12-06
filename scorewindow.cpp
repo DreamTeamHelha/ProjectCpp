@@ -24,6 +24,7 @@ ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
     ui->setupUi(this);
     load();
     m_rank = ranked();
+
     if(m_rank<10)
     {
         connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(addScore()));
@@ -42,7 +43,6 @@ ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
         connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(backToMenu()));
         ui->nameText->hide();
     }
-
     loadTableView();
 }
 
@@ -131,13 +131,12 @@ void ScoreWindow::loadTableView()
 
       model->setHorizontalHeaderItem(0, new QStandardItem(QString("Name")));
       model->setHorizontalHeaderItem(1, new QStandardItem(QString("Time")));
-
       ui->tableView->setModel(model);
 }
 
 int ScoreWindow::ranked() const
 {
-    for(int cpt = 0;cpt<(m_scoreVector.size()-1);cpt++)
+    for(int cpt = 0;cpt<(m_scoreVector.size());cpt++)
     {
         if(m_time < m_scoreVector[cpt]->time())
             return cpt;

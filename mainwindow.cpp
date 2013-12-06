@@ -94,6 +94,8 @@ void MainWindow::showPanel(const QString &menuName)
         connect(m_panel, SIGNAL(showPanel(QString)), this, SLOT(showPanel(QString)));
         connect(m_panel, SIGNAL(startGame(QString,QString)), this, SLOT(startGame(QString,QString)));
         m_panel->show();
+
+
     }
 }
 
