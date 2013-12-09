@@ -67,6 +67,8 @@ GameWidget::~GameWidget()
     std::cout << "GameWidget deleted" << std::endl;
     if (m_scene)
         delete m_scene;
+
+    delete m_preStartTimer;
 }
 
 Scene *GameWidget::scene() const
@@ -158,7 +160,7 @@ void GameWidget::timerEvent(QTimerEvent *timerEvent)
 
                 if(m_scene->isFinished())
                 {
-                    killTimer(timerEvent->timerId());
+                    this->killTimer(timerEvent->timerId());
                     emit showScore("Score");
                 }
                 else
@@ -218,6 +220,8 @@ void GameWidget::setPaused(bool paused)
 void GameWidget::startGame()
 {
     m_timeBeforeBeginRemainingLabel.hide();
+    m_timeBeforeBeginRemainingLabel.close();
     m_timeBeforeBeginRemainingLabel.deleteLater();
+
     scene()->start();
 }

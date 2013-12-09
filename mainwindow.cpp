@@ -92,8 +92,11 @@ void MainWindow::showPanel(const QString &menuName)
     if (m_panel)
     {
         connect(m_panel, SIGNAL(showPanel(QString)), this, SLOT(showPanel(QString)));
+        std::cout<<"Pas de bug 1"<<std::endl;
         connect(m_panel, SIGNAL(startGame(QString,QString)), this, SLOT(startGame(QString,QString)));
+        std::cout<<"Pas de bug 2"<<std::endl;
         m_panel->show();
+        std::cout<<"Pas de bug 3"<<std::endl;
 
 
     }
